@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'core.apps.CoreConfig',
 ]
 
 if os.environ.get('DJANGO_USE_DEBUG_TOOLBAR'):
@@ -137,3 +138,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'site_static'),
+    os.path.join(BASE_DIR, 'dist'),
+    os.path.join(BASE_DIR, 'media'),
+]
+
+FILE_UPLOAD_TEMP_DIR = os.path.join(BASE_DIR, 'tmp')
