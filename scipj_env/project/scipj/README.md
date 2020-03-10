@@ -98,3 +98,6 @@ MAGAZINE_STATUS_CHOICES = (
     ("expired", _("Expired")),
 )
 ```
+
+pg_ctl -D "C:\Program Files\PostgreSQL\12\data" start
+https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-14-04

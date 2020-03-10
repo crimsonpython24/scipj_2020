@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os, sys
 
 from utils.misc import get_media_svn_revision, get_git_changeset
+from . import settings_sensitive
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -30,10 +31,10 @@ STATIC_URL = f'/static/{get_git_changeset(BASE_DIR)}/'
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '0!liz&4oun45p#1l8+9qktjpuheyu3!wb9-q_cqh4*$l5gzbj%'
+SECRET_KEY = settings_sensitive.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 if os.environ.get('DJANGO_USE_DEBUG'):
     DEBUG = True
@@ -96,12 +97,7 @@ WSGI_APPLICATION = 'scipj.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+DATABASES = settings_sensitive.DATABASES
 
 
 # Password validation
