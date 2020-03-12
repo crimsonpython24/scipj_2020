@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block scripts %}
+<script>
+    let dummy_img_1_path = "{% static 'site/img/dummy_img_1.png' %}";
+</script>
+<script src="{% static 'hash/sample/layout.js' %}"></script>
+{% endblock scripts %}

@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core.apps.CoreConfig',
+    'hash.apps.HashConfig',
 ]
 
 if os.environ.get('DJANGO_USE_DEBUG_TOOLBAR'):
