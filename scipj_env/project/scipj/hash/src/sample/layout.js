@@ -40,4 +40,5 @@ function SimpleContainer() {
     );
   }
   
-ReactDOM.render(<div><Navbar/><SimpleContainer/></div>, document.querySelector('#app'));
+ReactDOM.render(<div><Navbar/></div>, document.querySelector('#navbar'));
+ReactDOM.render(<div><SimpleContainer/></div>, document.querySelector('#view-1'));
