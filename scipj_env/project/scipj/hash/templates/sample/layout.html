@@ -7,6 +7,13 @@
   <link href="{% static 'site/css/MDB-Pro/mdb.min.css' %}" rel="stylesheet" />
   <link href="{% static 'site/css/MDB-Pro/style.min.css' %}" rel="stylesheet" />
   <link href="{% static 'site/css/MDB-Pro/addons/fsscroller.min.css' %}" rel="stylesheet" />
+  <style>
+    .info {
+      position: absolute; top: 0; left: 0; width: 100%;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; font-size: 32px;
+    }
+  </style>
 {% endblock styles %}
 
 {% block content %}
@@ -25,14 +32,12 @@
     </button>
   </div>
 
-  
-  <div fss-anchor="view-1" class="fss-mainview" style="background-repeat: no-repeat; background-size: cover; background-position: center center;">
-    <div id="view-1">
-      
+  <div fss-anchor="view-1" class="fss-mainview fss-active" style="background-repeat: no-repeat; background-size: cover; background-position: center center;">
+    <div id="view-1" class="info">
     </div>
   </div>
 
-  <div fss-anchor="view-2" class="fss-mainview fss-active">
+  <div fss-anchor="view-2" class="fss-mainview" style="background-repeat: no-repeat; background-size: cover; background-position: center center;">
     <div class="fss-subview">
       <div class="fss-dotted-scrollspy">
         <button type="button" class="fss-nav-btn fss-subview-prev">
@@ -45,19 +50,14 @@
         </button>
       </div>
 
-      <div fss-anchor="subview-a" class="fss-subview-item subview-a" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/89.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
-        <div class="box">
-          <div class="info">
-            <p>View 1</p>
-            <p>Subview A</p>
-          </div>
+      <div fss-anchor="subview-a" class="fss-subview-item subview-a" style="background-repeat: no-repeat; background-size: cover; background-position: center center;">
+        <div id="view-2a">
+          
         </div>
       </div>
 
-      <div fss-anchor="subview-b" class="fss-subview-item fss-active" style="background-image: url('https://z9t4u9f6.stackpathcdn.com/wp-content/uploads/2015/10/cover-ca-compressor2.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
-        <div class="box">
-          <div class="info">Subview B</div>
-        </div>
+      <div fss-anchor="subview-b" class="fss-subview-item fss-active" style="background-repeat: no-repeat; background-size: cover; background-position: center center;">
+        <div id="view-2b"></div>
       </div>
     </div>
   </div>
