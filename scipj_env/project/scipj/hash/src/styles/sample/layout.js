@@ -11,4 +11,15 @@ const useLayoutStyles = makeStyles(theme => ({
   },
 }));
 
-export default useLayoutStyles;
+
+const useListStyles = makeStyles(theme => ({
+  root: {
+    width: "100%",
+    backgroundColor: theme.palette.background.paper
+  },
+  beforeText: {
+    fontWeight: 300
+  }
+}));
+
+export default {useLayoutStyles, useListStyles};

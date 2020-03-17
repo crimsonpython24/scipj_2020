@@ -6,6 +6,7 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import useLayoutStyles from '../styles/sample/layout';
+import useListStyles from '../styles/sample/layout';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
@@ -56,31 +57,74 @@ function SimpleTabs() {
   };
 
   return (
-    <Container maxWidth="lg" style={{ paddingLeft: '0px', paddingRight: '0px', paddingTop: '64px', marginBottom: '0px'}}>
-      <Grid container spacing={0}>
-        <Grid item xs={12} sm={6}>
-          <Paper square>
-            <Tabs value={value1} indicatorColor="primary" textColor="primary" onChange={handleChange1} aria-label="disabled tabs example">
-              <Tab label="Active" />
-              <Tab label="Disabled"/>
-              <Tab label="Active" />
-            </Tabs>
-          </Paper>
+    <React.Fragment>
+      <Container maxWidth="lg" style={{ paddingLeft: '0px', paddingRight: '0px', paddingTop: '64px', marginBottom: '0px'}}>
+        <Grid container spacing={0}>
+          <Grid item xs={12} sm={6}>
+            <Paper square>
+              <Tabs value={value1} indicatorColor="primary" textColor="primary" onChange={handleChange1} aria-label="disabled tabs example">
+                <Tab label="Active" />
+                <Tab label="Disabled"/>
+                <Tab label="Active" />
+              </Tabs>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Paper square>
+              <Tabs value={value2} indicatorColor="primary" textColor="primary" onChange={handleChange2} aria-label="disabled tabs example">
+                <Tab label="Active" />
+                <Tab label="Disabled"/>
+                <Tab label="Active" />
+              </Tabs>
+            </Paper>
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <Paper square>
-            <Tabs value={value2} indicatorColor="primary" textColor="primary" onChange={handleChange2} aria-label="disabled tabs example">
-              <Tab label="Active" />
-              <Tab label="Disabled"/>
-              <Tab label="Active" />
-            </Tabs>
-          </Paper>
-        </Grid>
-      </Grid>
-    </Container>
+      </Container>
+    </React.Fragment>
   );
 }
-  
+
+function ListItemLink(props) {
+  return <ListItem button component="a" {...props} />;
+}
+
+export default function SimpleList() {
+  const classes = useListStyles();
+
+  return (
+    <div className={classes.root}>
+      <List component="nav" aria-label="secondary mailbox folders">
+        <ListItemLink href="#" button>
+          <ListItemText
+            primary={
+              <div style={{ paddingLeft: "0px" }}>
+                <Typography
+                  variant="overline"
+                  display="block"
+                  gutterBottom
+                  style={{ marginBottom: "0px" }}
+                >
+                  Consectetur adipiscing elit, vivamus orci velit
+                </Typography>
+                <Typography
+                  variant="h6"
+                  className={classes.beforeText}
+                  style={{ marginBottom: "-4.5px" }}
+                >
+                  Lorem Ipsum dolor sit Amet
+                </Typography>
+                <Typography variant="h6">Lorem Ipsum dolor sit Amet</Typography>
+              </div>
+            }
+          />
+        </ListItemLink>
+      </List>
+    </div>
+  );
+}
+
+
 ReactDOM.render(<div><Navbar/></div>, document.querySelector('#navbar'));
 ReactDOM.render(<div><SimpleContainer/></div>, document.querySelector('#view-1'));
 ReactDOM.render(<div><SimpleTabs/></div>, document.querySelector('#view-2a'));
+// ReactDOM.render(<div><SimpleList/></div>, document.querySelector('#view-2b'));
