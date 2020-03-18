@@ -5,47 +5,51 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import useLayoutStyles from '../styles/sample/layout';
-import useListStyles from '../styles/sample/layout';
+import { useLayoutStyles, useListStyles, useTranslateStyles } from '../styles/sample/layout';
 import Typography from '@material-ui/core/Typography';
-import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Box from "@material-ui/core/Box";
+import List from '@material-ui/core/List';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 
 function SimpleContainer() {
   const layout_classes = useLayoutStyles();
   
   return (
-    <Container maxWidth="lg" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
-      <Typography variant="overline" display="block" gutterBottom style={{ paddingTop: '64px', marginBottom: '0px'}}>
-        Consectetur adipiscing elit, vivamus orci velit
-      </Typography>
-      <Typography variant="h4" gutterBottom>
-        Lorem Ipsum dolor sit Amet
-      </Typography>
-      <div className={layout_classes.root }>
-        <Grid container spacing={0}>
-          <Grid item xs={12} md={5} style={{ height: "455px" }}>
+    <div>
+      <CssBaseline />
+      <Container maxWidth="lg" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
+        <Typography variant="overline" display="block" gutterBottom style={{ paddingTop: '64px', marginBottom: '0px'}}>
+          Consectetur adipiscing elit, vivamus orci velit
+        </Typography>
+        <Typography variant="h4" gutterBottom>
+          Lorem Ipsum dolor sit Amet
+        </Typography>
+        <div className={ layout_classes.root }>
+          <Grid container spacing={0}>
+            <Grid item xs={12} md={5} style={{ height: "455px" }}>
+            </Grid>
+            <Grid item xs={12} md={7} style={{ height: "455px",  padding: "30px" }}>
+              <Typography variant="body1" gutterBottom>
+                Vestibulum efficitur enim sed leo vehicula, nec vulputate neque aliquam. Morbi hendrerit neque massa,
+                in finibus libero egestas vitae. Curabitur mattis orci sapien, vitae bibendum elit finibus nec.
+                Integer rutrum tellus sem, id egestas metus aliquam eget. In commodo ultricies gravida. Suspendisse mi ante,
+                hendrerit commodo lorem sit amet, finibus elementum mauris. Proin vehicula libero et elit venenatis gravida.
+              </Typography>
+            </Grid>
           </Grid>
-          <Grid item xs={12} md={7} style={{ height: "455px",  padding: "30px" }}>
-            <Typography variant="body1" gutterBottom>
-              Vestibulum efficitur enim sed leo vehicula, nec vulputate neque aliquam. Morbi hendrerit neque massa,
-              in finibus libero egestas vitae. Curabitur mattis orci sapien, vitae bibendum elit finibus nec.
-              Integer rutrum tellus sem, id egestas metus aliquam eget. In commodo ultricies gravida. Suspendisse mi ante,
-              hendrerit commodo lorem sit amet, finibus elementum mauris. Proin vehicula libero et elit venenatis gravida.
-            </Typography>
-          </Grid>
-        </Grid>
-      </div>
-    </Container>
+        </div>
+      </Container>
+    </div>
   );
 }
 
 function SimpleTabs() {
+  const translate_classes = useTranslateStyles();
+
   const [value1, setValue1] = React.useState(2);
   const [value2, setValue2] = React.useState(2);
 
@@ -67,6 +71,7 @@ function SimpleTabs() {
                 <Tab label="Disabled"/>
                 <Tab label="Active" />
               </Tabs>
+              <TextareaAutosize aria-label="minimum height" rowsMin={3} placeholder="Minimum 3 rows" className={translate_classes.box}  />
             </Paper>
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -76,6 +81,7 @@ function SimpleTabs() {
                 <Tab label="Disabled"/>
                 <Tab label="Active" />
               </Tabs>
+              <TextareaAutosize aria-label="minimum height" rowsMin={3} placeholder="Minimum 3 rows" className={translate_classes.box} disabled />
             </Paper>
           </Grid>
         </Grid>
@@ -127,4 +133,4 @@ export default function SimpleList() {
 ReactDOM.render(<div><Navbar/></div>, document.querySelector('#navbar'));
 ReactDOM.render(<div><SimpleContainer/></div>, document.querySelector('#view-1'));
 ReactDOM.render(<div><SimpleTabs/></div>, document.querySelector('#view-2a'));
-// ReactDOM.render(<div><SimpleList/></div>, document.querySelector('#view-2b'));
+ReactDOM.render(<div><SimpleList/></div>, document.querySelector('#view-2b'));

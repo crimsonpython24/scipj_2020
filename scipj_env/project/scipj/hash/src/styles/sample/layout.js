@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useLayoutStyles = makeStyles(theme => ({
+export const useLayoutStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
   },
@@ -12,7 +12,7 @@ const useLayoutStyles = makeStyles(theme => ({
 }));
 
 
-const useListStyles = makeStyles(theme => ({
+export const useListStyles = makeStyles(theme => ({
   root: {
     width: "100%",
     backgroundColor: theme.palette.background.paper
@@ -22,4 +22,11 @@ const useListStyles = makeStyles(theme => ({
   }
 }));
 
-export default {useLayoutStyles, useListStyles};
+export const useTranslateStyles = makeStyles(theme => ({
+  box: {
+    height: "73px",
+    margin: "0px",
+    width: "100%",
+    minHeight: "170px",
+  }
+}));
