@@ -102,4 +102,5 @@ MAGAZINE_STATUS_CHOICES = (
 pg_ctl -D "C:\Program Files\PostgreSQL\12\data" start
 webpack core\src\index\index.js -o dist\core\index\index.js
 webpack hash\src\sample\layout.js -o dist\hash\sample\layout.js
+webpack hash\src\sample\stepper.js -o dist\hash\sample\stepper.js
 https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-14-04

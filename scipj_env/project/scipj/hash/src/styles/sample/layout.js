@@ -27,6 +27,8 @@ export const useTranslateStyles = makeStyles(theme => ({
     margin: "0px",
     width: "100%",
     minHeight: "170px",
-    border: "0px"
+    border: "0px",
+    paddingLeft: "-30px;",
+    paddingRight: "-30px;"
   }
 }));

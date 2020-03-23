@@ -65,17 +65,17 @@ function SimpleTabs() {
       <Container maxWidth="lg" style={{ paddingLeft: '0px', paddingRight: '0px', paddingTop: '64px', marginBottom: '0px'}}>
         <Grid container spacing={0}>
           <Grid item xs={12} sm={6}>
-            <Paper square>
+            <Paper square style={{ paddingLeft: '30px', paddingRight: '30px' }}>
               <Tabs value={value1} indicatorColor="primary" textColor="primary" onChange={handleChange1} aria-label="disabled tabs example">
                 <Tab label="Active" />
                 <Tab label="Disabled"/>
                 <Tab label="Active" />
               </Tabs>
-              <TextareaAutosize aria-label="minimum height" rowsMin={3} placeholder="Minimum 3 rows" className={translate_classes.box}  />
+              <TextareaAutosize aria-label="minimum height" rowsMin={3} placeholder="Minimum 3 rows" className={translate_classes.box} />
             </Paper>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Paper square>
+            <Paper square style={{ paddingLeft: '30px', paddingRight: '30px' }}>
               <Tabs value={value2} indicatorColor="primary" textColor="primary" onChange={handleChange2} aria-label="disabled tabs example">
                 <Tab label="Active" />
                 <Tab label="Disabled"/>
