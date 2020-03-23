@@ -98,33 +98,27 @@ export default function SimpleList() {
   const classes = useListStyles();
 
   return (
-    <div className={classes.root}>
-      <List component="nav" aria-label="secondary mailbox folders">
-        <ListItemLink href="#" button>
-          <ListItemText
-            primary={
-              <div style={{ paddingLeft: "0px" }}>
-                <Typography
-                  variant="overline"
-                  display="block"
-                  gutterBottom
-                  style={{ marginBottom: "0px" }}
-                >
-                  Consectetur adipiscing elit, vivamus orci velit
-                </Typography>
-                <Typography
-                  variant="h6"
-                  className={classes.beforeText}
-                  style={{ marginBottom: "-4.5px" }}
-                >
-                  Lorem Ipsum dolor sit Amet
-                </Typography>
-                <Typography variant="h6">Lorem Ipsum dolor sit Amet</Typography>
-              </div>
-            }
-          />
-        </ListItemLink>
-      </List>
+    <div className={classes.root} style={{ paddingTop: '64px' }}>
+      <Container maxWidth="lg" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
+        <Typography variant="h4" style={{ paddingBottom: '30px' }}>Translated Texts</Typography>
+        <List component="nav" aria-label="secondary mailbox folders">
+          <ListItemLink href="#" button>
+            <ListItemText
+              primary={
+                <div style={{ paddingLeft: "-16px" }}>
+                  <Typography variant="overline" display="block" gutterBottom style={{ marginBottom: "0px", marginTop: "15px" }}>
+                    Consectetur adipiscing elit, vivamus orci velit
+                  </Typography>
+                  <Typography variant="h6" className={classes.beforeText} style={{ marginBottom: "-4.5px" }}>
+                    Lorem Ipsum dolor sit Amet
+                  </Typography>
+                  <Typography variant="h6" style={{ marginBottom: "15px" }}>Lorem Ipsum dolor sit Amet</Typography>
+                </div>
+              }
+            />
+          </ListItemLink>
+        </List>
+      </Container>
     </div>
   );
 }

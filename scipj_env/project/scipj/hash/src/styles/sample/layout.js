@@ -24,9 +24,9 @@ export const useListStyles = makeStyles(theme => ({
 
 export const useTranslateStyles = makeStyles(theme => ({
   box: {
-    height: "73px",
     margin: "0px",
     width: "100%",
     minHeight: "170px",
+    border: "0px"
   }
 }));
