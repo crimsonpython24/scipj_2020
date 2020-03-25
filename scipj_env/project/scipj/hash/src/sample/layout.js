@@ -33,6 +33,32 @@ function getCookie(name) {
   return cookieValue;
 }
 
+let initialGlobalState = {
+  text: "",
+};
+const GlobalStateContext = React.createContext(initialGlobalState);
+const DispatchStateContext = React.createContext(undefined);
+
+// global state provider
+const GlobalStateProvider = ({ children }) => {
+  const [state, dispatch] = React.useReducer(
+    (state, newValue) => ({ ...state, ...newValue }),
+    initialGlobalState
+  );
+  return (
+    <GlobalStateContext.Provider value={state}>
+      <DispatchStateContext.Provider value={dispatch}>
+        {children}
+      </DispatchStateContext.Provider>
+    </GlobalStateContext.Provider>
+  );
+};
+
+const useGlobalState = () => [
+  React.useContext(GlobalStateContext),
+  React.useContext(DispatchStateContext)
+];
+
 function SimpleContainer() {
   const layout_classes = useLayoutStyles();
   
@@ -97,6 +123,8 @@ function SimpleTabs() {
 
   const handleChange1 = (event, newValue) => {setValue1(newValue);};
   const handleChange2 = (event, newValue) => {setValue2(newValue);};
+  
+  const [state, dispatch] = useGlobalState();
 
   return (
     <Container maxWidth="lg" style={{ paddingLeft: '0px', paddingRight: '0px', paddingTop: '64px', marginBottom: '0px'}}>
@@ -126,7 +154,9 @@ function SimpleTabs() {
                 <Tab label="Item Four" {...a11yProps(3)} />
               </Tabs>
             </AppBar>
-            <div id="textAreaTranslateOut"></div>
+            <TextareaAutosize aria-label="minimum height" rowsMin={3} disabled placeholder="dssdd"
+            style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
+            width: "100%", minHeight: "170px", border: "0px" }} />
           </Paper>
         </Grid>
       </Grid>
@@ -146,13 +176,11 @@ class TextArea extends React.Component {
 
   handleChange(event) {
     this.setState({value: event.target.value});
-
     event.preventDefault();
 
     let csrftoken = getCookie('csrftoken');
-    console.log(csrftoken);
-
     let me = this;
+
     fetch('/hash/sample/', {
         method: "post",
         credentials: "include",
@@ -167,6 +195,8 @@ class TextArea extends React.Component {
         return response.json();
     }).then(function(data) {
       me.setState({after: data.translateText});
+      initialGlobalState.text = me.state.after;
+      console.log(initialGlobalState.text);
     }).catch(function(ex) {
         console.log("parsing failed", ex);
     });
@@ -183,8 +213,6 @@ class TextArea extends React.Component {
         <TextareaAutosize aria-label="minimum height" rowsMin={3} placeholder="Minimum 3 rows" onChange={this.handleChange}
             style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
             width: "100%", minHeight: "170px", border: "0px" }} />
-        
-      <Typography>{ this.state.after }</Typography>
       </form>
     );
   }
