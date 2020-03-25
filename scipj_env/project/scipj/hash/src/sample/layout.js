@@ -13,11 +13,25 @@ import List from '@material-ui/core/List';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Box from "@material-ui/core/Box";
 
+
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    let cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      let cookie = jQuery.trim(cookies[i]);
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+      }
+    }
+  }
+  return cookieValue;
+}
 
 function SimpleContainer() {
   const layout_classes = useLayoutStyles();
@@ -81,12 +95,8 @@ function SimpleTabs() {
   const [value1, setValue1] = React.useState(2);
   const [value2, setValue2] = React.useState(2);
 
-  const handleChange1 = (event, newValue) => {
-    setValue1(newValue);
-  };
-  const handleChange2 = (event, newValue) => {
-    setValue2(newValue);
-  };
+  const handleChange1 = (event, newValue) => {setValue1(newValue);};
+  const handleChange2 = (event, newValue) => {setValue2(newValue);};
 
   return (
     <Container maxWidth="lg" style={{ paddingLeft: '0px', paddingRight: '0px', paddingTop: '64px', marginBottom: '0px'}}>
@@ -102,8 +112,7 @@ function SimpleTabs() {
                 <Tab label="Item Four" {...a11yProps(3)} />
               </Tabs>
             </AppBar>
-            <TextareaAutosize aria-label="minimum height" rowsMin={3} placeholder="Minimum 3 rows" className={translate_classes.box}
-            style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px' }}/>
+            <div id="textAreaTranslateIn"></div>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -117,13 +126,68 @@ function SimpleTabs() {
                 <Tab label="Item Four" {...a11yProps(3)} />
               </Tabs>
             </AppBar>
-            <TextareaAutosize aria-label="minimum height" rowsMin={3} placeholder="Minimum 3 rows" className={translate_classes.box} disabled
-            style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px' }}/>
+            <div id="textAreaTranslateOut"></div>
           </Paper>
         </Grid>
       </Grid>
     </Container>
   );
+}
+
+// textarea handle change
+class TextArea extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: '', after: ''};
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+
+    event.preventDefault();
+
+    let csrftoken = getCookie('csrftoken');
+    console.log(csrftoken);
+
+    let me = this;
+    fetch('/hash/sample/', {
+        method: "post",
+        credentials: "include",
+        headers: new Headers({
+          'X-CSRFToken': csrftoken,
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+          'X-Requested-With': 'XMLHttpRequest'
+        }),
+        body: `translateText=${this.state.value}` 
+
+    }).then(function(response) {
+        return response.json();
+    }).then(function(data) {
+      me.setState({after: data.translateText});
+    }).catch(function(ex) {
+        console.log("parsing failed", ex);
+    });
+  }
+
+  handleSubmit(event) {
+    alert('A name was submitted: ' + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <TextareaAutosize aria-label="minimum height" rowsMin={3} placeholder="Minimum 3 rows" onChange={this.handleChange}
+            style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
+            width: "100%", minHeight: "170px", border: "0px" }} />
+        
+      <Typography>{ this.state.after }</Typography>
+      </form>
+    );
+  }
 }
 
 function ListItemLink(props) {
@@ -163,4 +227,5 @@ export default function SimpleList() {
 ReactDOM.render(<div><Navbar/></div>, document.querySelector('#navbar'));
 ReactDOM.render(<div><SimpleContainer/></div>, document.querySelector('#view-1'));
 ReactDOM.render(<div><SimpleTabs/></div>, document.querySelector('#view-2a'));
+ReactDOM.render(<div><TextArea/></div>, document.querySelector('#textAreaTranslateIn'));
 ReactDOM.render(<div><SimpleList/></div>, document.querySelector('#view-2b'));
