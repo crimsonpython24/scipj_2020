@@ -33,6 +33,9 @@ function getCookie(name) {
   return cookieValue;
 }
 
+const TranslatedText = {text: "lorem"}
+const TranslateContext = React.createContext(TranslatedText.text);
+
 function SimpleContainer() {
   const layout_classes = useLayoutStyles();
   
@@ -95,7 +98,9 @@ function SimpleTabs() {
   const [value1, setValue1] = React.useState(2);
   const [value2, setValue2] = React.useState(2);
 
-  const handleChange1 = (event, newValue) => {setValue1(newValue);};
+  const handleChange1 = (event, newValue) => {
+    setValue1(newValue);
+  };
   const handleChange2 = (event, newValue) => {setValue2(newValue);};
 
   return (
@@ -126,10 +131,18 @@ function SimpleTabs() {
                 <Tab label="Item Four" {...a11yProps(3)} />
               </Tabs>
             </AppBar>
-            <TextareaAutosize aria-label="minimum height" rowsMin={3} disabled placeholder=""
+            <TextareaAutosize aria-label="minimum height" rowsMin={3} disabled 
+            placeholder=""
             style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
             width: "100%", minHeight: "170px", border: "0px" }} />
           </Paper>
+          <TranslateContext.Consumer> 
+              {
+                (after) => {
+                  <div>{after.text}</div>
+                }
+              }
+            </TranslateContext.Consumer>
         </Grid>
       </Grid>
     </Container>
@@ -183,6 +196,9 @@ class TextArea extends React.Component {
         <TextareaAutosize aria-label="minimum height" rowsMin={3} placeholder="Minimum 3 rows" onChange={this.handleChange}
             style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
             width: "100%", minHeight: "170px", border: "0px" }} />
+        <TranslateContext.Provider value={ TranslatedText[this.state.after] }>
+          <Typography>{ this.state.after }</Typography>
+        </TranslateContext.Provider>
       </form>
     );
   }
