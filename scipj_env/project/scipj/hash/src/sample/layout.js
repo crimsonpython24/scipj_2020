@@ -103,38 +103,42 @@ function SimpleTabs() {
 
   return (
     <Container maxWidth="lg" style={{ paddingLeft: '0px', paddingRight: '0px', paddingTop: '128px', marginBottom: '0px'}}>
-      <Grid container spacing={0}>
-        <Grid item xs={12} sm={6}>
-          <Paper elevation={2}>
-            <AppBar position="static" color="default">
+      <Paper elevation={2} style={{ borderRadius: "7.5px" }}>
+        <AppBar position="static" color="default" style={{ boxShadow: "none" }}>
+          <Grid container spacing={0} style={{ borderBottom: "0.5px solid #e3e3e3" }}>
+            <Grid item xs={12} sm={6}>
               <Tabs value={value1} onChange={handleChange1} indicatorColor="primary" textColor="primary" variant="scrollable"
+              scrollButtons="auto" aria-label="scrollable auto tabs example" elevation={0} style={{ paddingRight: '50px', backgroundColor: "#FFFFFF" }}>
+                <Tab label="Item One" {...a11yProps(0)} className={translate_classes.tabs} />
+                <Tab label="Item Two" {...a11yProps(1)} className={translate_classes.tabs} />
+                <Tab label="Item Three" {...a11yProps(2)} className={translate_classes.tabs} />
+                <Tab label="Item Four" {...a11yProps(3)} className={translate_classes.tabs} />
+              </Tabs>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Tabs value={value1} onChange={handleChange2} indicatorColor="primary" textColor="primary" variant="scrollable"
               scrollButtons="auto" aria-label="scrollable auto tabs example" elevation={0}>
                 <Tab label="Item One" {...a11yProps(0)} className={translate_classes.tabs} />
                 <Tab label="Item Two" {...a11yProps(1)} className={translate_classes.tabs} />
                 <Tab label="Item Three" {...a11yProps(2)} className={translate_classes.tabs} />
                 <Tab label="Item Four" {...a11yProps(3)} className={translate_classes.tabs} />
               </Tabs>
-            </AppBar>
-            <TextArea setTText={setTText} />
-          </Paper>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Paper  elevation={2}>
-            <AppBar position="static" color="default">
-              <Tabs value={value2} onChange={handleChange2} indicatorColor="primary" textColor="primary" variant="scrollable"
-              scrollButtons="auto" aria-label="scrollable auto tabs example" elevation={0}>
-                <Tab label="Item One" {...a11yProps(0)} className={translate_classes.tabs} />
-                <Tab label="Item Two" {...a11yProps(1)} className={translate_classes.tabs} />
-                <Tab label="Item Three" {...a11yProps(2)} className={translate_classes.tabs} />
-                <Tab label="Item Four" {...a11yProps(3)} className={translate_classes.tabs} />
-              </Tabs>
-            </AppBar>
-            <TextareaAutosize disabled placeholder={ttext}
-            style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
-            width: "100%", minHeight: "170px", border: "0px" }} />
-          </Paper>
-        </Grid>
-      </Grid>
+            </Grid>
+          </Grid>
+        </AppBar>
+        <div>
+          <Grid container spacing={0} >
+            <Grid item xs={12} sm={6} style={{ borderRight: "0.5px solid #e3e3e3" }}>
+              <TextArea setTText={setTText}/>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextareaAutosize disabled placeholder={ttext}
+                style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
+                width: "100%", minHeight: "170px", border: "0px", backgroundColor: "#FFFFFF" }} />
+            </Grid>
+          </Grid>
+        </div>
+      </Paper>
     </Container>
   );
 }
@@ -229,5 +233,4 @@ export default function SimpleList() {
 ReactDOM.render(<div><Navbar/></div>, document.querySelector('#navbar'));
 ReactDOM.render(<div><SimpleContainer/></div>, document.querySelector('#view-1'));
 ReactDOM.render(<div><SimpleTabs/></div>, document.querySelector('#view-2a'));
-ReactDOM.render(<div><TextArea/></div>, document.querySelector('#textAreaTranslateIn'));
 ReactDOM.render(<div><SimpleList/></div>, document.querySelector('#view-2b'));
