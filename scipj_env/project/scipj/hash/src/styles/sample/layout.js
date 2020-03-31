@@ -30,5 +30,10 @@ export const useTranslateStyles = makeStyles(theme => ({
     border: "0px",
     paddingLeft: "-30px;",
     paddingRight: "-30px;"
+  },
+  tabs: {
+    paddingLeft: '0px !important',
+    paddingRight: '0px !important',
+    backgroundColor: '#FFFFFF',
   }
 }));

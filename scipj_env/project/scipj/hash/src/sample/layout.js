@@ -33,9 +33,6 @@ function getCookie(name) {
   return cookieValue;
 }
 
-const TranslatedText = {text: "lorem"}
-const TranslateContext = React.createContext(TranslatedText.text);
-
 function SimpleContainer() {
   const layout_classes = useLayoutStyles();
   
@@ -97,6 +94,7 @@ function SimpleTabs() {
 
   const [value1, setValue1] = React.useState(2);
   const [value2, setValue2] = React.useState(2);
+  const [ttext, setTText] = React.useState('');
 
   const handleChange1 = (event, newValue) => {
     setValue1(newValue);
@@ -104,56 +102,48 @@ function SimpleTabs() {
   const handleChange2 = (event, newValue) => {setValue2(newValue);};
 
   return (
-    <Container maxWidth="lg" style={{ paddingLeft: '0px', paddingRight: '0px', paddingTop: '64px', marginBottom: '0px'}}>
+    <Container maxWidth="lg" style={{ paddingLeft: '0px', paddingRight: '0px', paddingTop: '128px', marginBottom: '0px'}}>
       <Grid container spacing={0}>
         <Grid item xs={12} sm={6}>
-          <Paper square>
+          <Paper elevation={2}>
             <AppBar position="static" color="default">
               <Tabs value={value1} onChange={handleChange1} indicatorColor="primary" textColor="primary" variant="scrollable"
-              scrollButtons="auto" aria-label="scrollable auto tabs example">
-                <Tab label="Item One" {...a11yProps(0)} />
-                <Tab label="Item Two" {...a11yProps(1)} />
-                <Tab label="Item Three" {...a11yProps(2)} />
-                <Tab label="Item Four" {...a11yProps(3)} />
+              scrollButtons="auto" aria-label="scrollable auto tabs example" elevation={0}>
+                <Tab label="Item One" {...a11yProps(0)} className={translate_classes.tabs} />
+                <Tab label="Item Two" {...a11yProps(1)} className={translate_classes.tabs} />
+                <Tab label="Item Three" {...a11yProps(2)} className={translate_classes.tabs} />
+                <Tab label="Item Four" {...a11yProps(3)} className={translate_classes.tabs} />
               </Tabs>
             </AppBar>
-            <div id="textAreaTranslateIn"></div>
+            <TextArea setTText={setTText} />
           </Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Paper square>
+          <Paper  elevation={2}>
             <AppBar position="static" color="default">
               <Tabs value={value2} onChange={handleChange2} indicatorColor="primary" textColor="primary" variant="scrollable"
-              scrollButtons="auto" aria-label="scrollable auto tabs example">
-                <Tab label="Item One" {...a11yProps(0)} />
-                <Tab label="Item Two" {...a11yProps(1)} />
-                <Tab label="Item Three" {...a11yProps(2)} />
-                <Tab label="Item Four" {...a11yProps(3)} />
+              scrollButtons="auto" aria-label="scrollable auto tabs example" elevation={0}>
+                <Tab label="Item One" {...a11yProps(0)} className={translate_classes.tabs} />
+                <Tab label="Item Two" {...a11yProps(1)} className={translate_classes.tabs} />
+                <Tab label="Item Three" {...a11yProps(2)} className={translate_classes.tabs} />
+                <Tab label="Item Four" {...a11yProps(3)} className={translate_classes.tabs} />
               </Tabs>
             </AppBar>
-            <TextareaAutosize aria-label="minimum height" rowsMin={3} disabled 
-            placeholder=""
+            <TextareaAutosize disabled placeholder={ttext}
             style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
             width: "100%", minHeight: "170px", border: "0px" }} />
           </Paper>
-          <TranslateContext.Consumer> 
-              {
-                (after) => {
-                  <div>{after.text}</div>
-                }
-              }
-            </TranslateContext.Consumer>
         </Grid>
       </Grid>
     </Container>
   );
 }
 
-// textarea handle change
 class TextArea extends React.Component {
   constructor(props) {
     super(props);
     this.state = {value: '', after: ''};
+    this.setTText = props.setTText;
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -180,6 +170,7 @@ class TextArea extends React.Component {
         return response.json();
     }).then(function(data) {
       me.setState({after: data.translateText});
+      me.setTText(data.translateText);
     }).catch(function(ex) {
         console.log("parsing failed", ex);
     });
@@ -193,12 +184,9 @@ class TextArea extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <TextareaAutosize aria-label="minimum height" rowsMin={3} placeholder="Minimum 3 rows" onChange={this.handleChange}
-            style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
-            width: "100%", minHeight: "170px", border: "0px" }} />
-        <TranslateContext.Provider value={ TranslatedText[this.state.after] }>
-          <Typography>{ this.state.after }</Typography>
-        </TranslateContext.Provider>
+        <TextareaAutosize onChange={this.handleChange}
+          style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
+          width: "100%", minHeight: "170px", border: "0px" }} />
       </form>
     );
   }
