@@ -92,9 +92,12 @@ function a11yProps(index) {
 function SimpleTabs() {
   const translate_classes = useTranslateStyles();
 
-  const [value1, setValue1] = React.useState(2);
-  const [value2, setValue2] = React.useState(2);
-  const [ttext, setTText] = React.useState('');
+  const [value1, setValue1] = React.useState(0);
+  const [value2, setValue2] = React.useState(1);
+
+  const [upperText, setUpper] = React.useState("");
+  const [lowerText, setLower] = React.useState("");
+  const [randomText, setRandom] = React.useState("");
 
   const handleChange1 = (event, newValue) => {
     setValue1(newValue);
@@ -109,19 +112,15 @@ function SimpleTabs() {
             <Grid item xs={12} sm={6}>
               <Tabs value={value1} onChange={handleChange1} indicatorColor="primary" textColor="primary" variant="scrollable"
               scrollButtons="auto" aria-label="scrollable auto tabs example" elevation={0} style={{ paddingRight: '50px', backgroundColor: "#FFFFFF" }}>
-                <Tab label="Item One" {...a11yProps(0)} className={translate_classes.tabs} />
-                <Tab label="Item Two" {...a11yProps(1)} className={translate_classes.tabs} />
-                <Tab label="Item Three" {...a11yProps(2)} className={translate_classes.tabs} />
-                <Tab label="Item Four" {...a11yProps(3)} className={translate_classes.tabs} />
+                <Tab label="Input Text" {...a11yProps(0)} className={translate_classes.tabs} />
               </Tabs>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Tabs value={value1} onChange={handleChange2} indicatorColor="primary" textColor="primary" variant="scrollable"
+              <Tabs value={value2} onChange={handleChange2} indicatorColor="primary" textColor="primary" variant="scrollable"
               scrollButtons="auto" aria-label="scrollable auto tabs example" elevation={0}>
-                <Tab label="Item One" {...a11yProps(0)} className={translate_classes.tabs} />
-                <Tab label="Item Two" {...a11yProps(1)} className={translate_classes.tabs} />
-                <Tab label="Item Three" {...a11yProps(2)} className={translate_classes.tabs} />
-                <Tab label="Item Four" {...a11yProps(3)} className={translate_classes.tabs} />
+                <Tab label="All Caps" {...a11yProps(0)} className={translate_classes.tabs} />
+                <Tab label="All Lower" {...a11yProps(1)} className={translate_classes.tabs} />
+                <Tab label="Random String" {...a11yProps(2)} className={translate_classes.tabs} />
               </Tabs>
             </Grid>
           </Grid>
@@ -129,12 +128,24 @@ function SimpleTabs() {
         <div>
           <Grid container spacing={0} >
             <Grid item xs={12} sm={6} style={{ borderRight: "0.5px solid #e3e3e3" }}>
-              <TextArea setTText={setTText}/>
+              <TextArea setUpper={setUpper} setLower={setLower} setRandom={setRandom} />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextareaAutosize disabled placeholder={ttext}
-                style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
-                width: "100%", minHeight: "170px", border: "0px", backgroundColor: "#FFFFFF" }} />
+              <TabPanel value={value2} index={0} style={{ padding: '0px' }}>
+                <TextareaAutosize disabled placeholder={upperText}
+                  style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
+                  width: "100%", minHeight: "170px", border: "0px", backgroundColor: "#FFFFFF" }} />
+              </TabPanel>
+              <TabPanel value={value2} index={1}>
+                <TextareaAutosize disabled placeholder={lowerText}
+                  style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
+                  width: "100%", minHeight: "170px", border: "0px", backgroundColor: "#FFFFFF" }} />
+              </TabPanel>
+              <TabPanel value={value2} index={2}>
+                <TextareaAutosize disabled placeholder={randomText}
+                  style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
+                  width: "100%", minHeight: "170px", border: "0px", backgroundColor: "#FFFFFF" }} />
+              </TabPanel>
             </Grid>
           </Grid>
         </div>
@@ -146,8 +157,11 @@ function SimpleTabs() {
 class TextArea extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: '', after: ''};
-    this.setTText = props.setTText;
+    this.state = {value: '', upper: '', lower: '', random: ''};
+
+    this.setUpper = props.setUpper;
+    this.setLower = props.setLower;
+    this.setRandom = props.setRandom;
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -168,13 +182,16 @@ class TextArea extends React.Component {
           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
           'X-Requested-With': 'XMLHttpRequest'
         }),
-        body: `translateText=${this.state.value}` 
+        body: `translateText=${event.target.value}` 
 
     }).then(function(response) {
         return response.json();
     }).then(function(data) {
-      me.setState({after: data.translateText});
-      me.setTText(data.translateText);
+      me.setState({upper: data.upperText, lower: data.lowerText, random: data.randomText});
+      me.setUpper(data.upperText);
+      me.setLower(data.lowerText);
+      me.setRandom(data.randomText);
+      console.log(data)
     }).catch(function(ex) {
         console.log("parsing failed", ex);
     });

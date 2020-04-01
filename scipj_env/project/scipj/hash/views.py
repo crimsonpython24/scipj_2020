@@ -7,9 +7,11 @@ class IndexView(TemplateView):
     template_name = "sample/layout.html"
 
     def post(self, request, *args, **kwargs):
-        translateText = request.POST.get('translateText', '')
-        newText = translateText.upper()
-        return JsonResponse({'translateText': newText})
+        translateText = request.POST.get('translateText')
+        upperText = translateText.upper()
+        lowerText = translateText.lower()
+        randomText = "X1C"
+        return JsonResponse({'upperText': upperText, 'lowerText': lowerText, 'randomText': randomText})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
