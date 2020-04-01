@@ -191,7 +191,6 @@ class TextArea extends React.Component {
       me.setUpper(data.upperText);
       me.setLower(data.lowerText);
       me.setRandom(data.randomText);
-      console.log(data)
     }).catch(function(ex) {
         console.log("parsing failed", ex);
     });

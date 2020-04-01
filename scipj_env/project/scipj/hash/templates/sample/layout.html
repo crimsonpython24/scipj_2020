@@ -84,7 +84,14 @@
 <script>
     let dummy_img_1_path = "{% static 'site/img/dummy_img_1.png' %}";
     $(document).ready(function () {
-      $(".full-screen-scroller").fullScreenScroller();
+      $(".full-screen-scroller").fullScreenScroller({
+        afterChange: function() {
+          var link = window.location.hash.substr(1);
+          var idx = link.indexOf("#");
+          var anchor = idx != -1 ? link.substring(idx+1) : "";
+          console.log(link)
+        }
+      });
     });
 </script>
 {% endblock scripts %}
