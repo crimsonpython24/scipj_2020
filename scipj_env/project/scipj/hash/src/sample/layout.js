@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import Navbar from '../../../core/src/components/Navbar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -216,8 +216,15 @@ function ListItemLink(props) {
   return <ListItem button component="a" {...props} />;
 }
 
-export default function SimpleList() {
+function SimpleList() {
+  let content = ""
   const classes = useListStyles();
+  useEffect(() => {
+    console.log(content)
+    content.addEventListener('refreshlog', (evt) => {
+      console.log("event");
+    })
+  }, [])
 
   return (
     <div className={classes.root} style={{ paddingTop: '64px' }}>
@@ -228,7 +235,7 @@ export default function SimpleList() {
             <ListItemText
               primary={
                 <div style={{ paddingLeft: "-16px" }}>
-                  <Typography variant="overline" display="block" gutterBottom style={{ marginBottom: "0px", marginTop: "15px" }}>
+                  <Typography ref={e => {content = e}} variant="overline" display="block" gutterBottom style={{ marginBottom: "0px", marginTop: "15px" }}>
                     Consectetur adipiscing elit, vivamus orci velit
                   </Typography>
                   <Typography variant="h6" className={classes.beforeText} style={{ marginBottom: "-4.5px" }}>
