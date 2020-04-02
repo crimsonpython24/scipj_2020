@@ -11,6 +11,10 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
+import TrendingFlatIcon from '@material-ui/icons/TrendingFlat';
+import Tooltip from '@material-ui/core/Tooltip';
 
 
 function SimpleContainer() {
@@ -94,8 +98,18 @@ function getStepContent(step) {
   }
 }
 
+const useIconStyles = makeStyles((theme) => ({
+  root: {
+    '& > svg': {
+      margin: theme.spacing(2),
+    },
+  },
+}));
+
 function HorizontalLinearStepper() {
   const classes = useStyles();
+  const svgClasses = useIconStyles();
+
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
   const steps = getSteps();
@@ -172,6 +186,19 @@ function HorizontalLinearStepper() {
           {activeStep === steps.length ? (
             <div>
               <Typography className={classes.instructions}>All steps completed - you&apos;re finished</Typography>
+              <Container maxWidth="sm" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
+                <Paper variant="outlined" >
+                  <form className={classes.root} noValidate autoComplete="off" style={{ paddingTop: '20px', paddingLeft: '16px', padddingRight: '16px', paddingBottom: '20px' }}>
+                    <div className={ svgClasses.root }>
+                      <TextField id="outlined-basic" variant="outlined" size="small" helperText="Your input string"/>  
+                      <TrendingFlatIcon/>
+                      <Tooltip title="Sorry, no time to do reverse" placement="top-start">
+                        <TextField id="outlined-basic" variant="outlined" size="small" InputProps={{ readOnly: true }} helperText="Your input string"/>
+                      </Tooltip>
+                    </div>
+                  </form>
+                </Paper>
+              </Container>
               <Button onClick={handleReset} className={classes.button}>Reset</Button>
             </div>
           ) : (
