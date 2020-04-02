@@ -17,6 +17,21 @@ import TrendingFlatIcon from '@material-ui/icons/TrendingFlat';
 import Tooltip from '@material-ui/core/Tooltip';
 
 
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    let cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      let cookie = jQuery.trim(cookies[i]);
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
 function SimpleContainer() {
   const layout_classes = useLayoutStyles();
   
@@ -106,6 +121,60 @@ const useIconStyles = makeStyles((theme) => ({
   },
 }));
 
+class TextInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: '', after: ''};
+
+    this.setAfter = props.setAfter;
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+    event.preventDefault();
+
+    let csrftoken = getCookie('csrftoken');
+    let me = this;
+
+    fetch('/hash/sample/', {
+        method: "post",
+        credentials: "include",
+        headers: new Headers({
+          'X-CSRFToken': csrftoken,
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+          'X-Requested-With': 'XMLHttpRequest'
+        }),
+        body: `translateText=${event.target.value}` 
+
+    }).then(function(response) {
+        return response.json();
+    }).then(function(data) {
+      me.setState({upper: data.afterText});
+      me.setAfter(data.afterText);
+      console.log(data.afterText);
+    }).catch(function(ex) {
+        console.log("parsing failed", ex);
+    });
+  }
+
+  handleSubmit(event) {
+    alert('A name was submitted: ' + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <TextField onChange={this.handleChange} id="outlined-basic" variant="outlined" size="small" helperText="Your input string"/>
+      </form>
+    );
+  }
+}
+
+
 function HorizontalLinearStepper() {
   const classes = useStyles();
   const svgClasses = useIconStyles();
@@ -113,6 +182,8 @@ function HorizontalLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
   const steps = getSteps();
+  
+  const [afterText, setAfter] = React.useState("");
 
   const isStepOptional = step => {
     return step === 1;
@@ -188,15 +259,16 @@ function HorizontalLinearStepper() {
               <Typography className={classes.instructions}>All steps completed - you&apos;re finished</Typography>
               <Container maxWidth="sm" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
                 <Paper variant="outlined" >
-                  <form className={classes.root} noValidate autoComplete="off" style={{ paddingTop: '20px', paddingLeft: '16px', padddingRight: '16px', paddingBottom: '20px' }}>
+                  <div className={classes.root} style={{ paddingTop: '20px', paddingLeft: '16px', padddingRight: '16px', paddingBottom: '20px' }}>
                     <div className={ svgClasses.root }>
-                      <TextField id="outlined-basic" variant="outlined" size="small" helperText="Your input string"/>  
+                      <TextInput setAfter={setAfter} />
                       <TrendingFlatIcon/>
                       <Tooltip title="Sorry, no time to do reverse" placement="top-start">
-                        <TextField id="outlined-basic" variant="outlined" size="small" InputProps={{ readOnly: true }} helperText="Your input string"/>
+                        <TextField id="outlined-basic" variant="outlined" size="small"
+                          InputProps={{ readOnly: true }} label={ afterText } helperText="Your input string"/>
                       </Tooltip>
                     </div>
-                  </form>
+                  </div>
                 </Paper>
               </Container>
               <Button onClick={handleReset} className={classes.button}>Reset</Button>
