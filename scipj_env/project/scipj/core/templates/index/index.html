@@ -1,6 +1,102 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block scripts %}
+{% block styles %}
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+  <link href="{% static 'site/css/MDB-Pro/bootstrap.min.css' %}" rel="stylesheet" />
+  <link href="{% static 'site/css/MDB-Pro/mdb.min.css' %}" rel="stylesheet" />
+  <link href="{% static 'site/css/MDB-Pro/style.min.css' %}" rel="stylesheet" />
+  <link href="{% static 'site/css/MDB-Pro/addons/fsscroller.min.css' %}" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #FFFFFF;
+    }
+    .info {
+      position: absolute; top: 0; left: 0; width: 100%;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; font-size: 32px;
+    }
+    .custom-scrollspy {
+      background-color: #212121f5;
+    }
+    textarea:focus {outline:none; resize: none;}
+    textarea {resize:none;}
+    
+  </style>
+{% endblock styles %}
+
+{% block content %}
+{% csrf_token %}
+<div id="navbar">
+</div>
+
+<div class="full-screen-scroller">
+  <div class="fss-dotted-scrollspy custom-scrollspy">
+    <button type="button" class="fss-nav-btn fss-mainview-prev">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+    <a href="#anchor-1" class="fss-nav-item active"></a>
+    <a href="#anchor-2" class="fss-nav-item"></a>
+    <button type="button" class="fss-nav-btn fss-mainview-next">
+      <i class="fas fa-chevron-down"></i>
+    </button>
+  </div>
+
+  <div fss-anchor="anchor-1" class="fss-mainview fss-active" style="background-repeat: no-repeat; background-size: cover; background-position: center center;">
+    <div id="view-1" class="info">
+    </div>
+  </div>
+
+  <div fss-anchor="anchor-2" class="fss-mainview" style="background-repeat: no-repeat; background-size: cover; background-position: center center;">
+    <div class="fss-subview">
+      <div class="fss-dotted-scrollspy custom-scrollspy">
+        <button type="button" class="fss-nav-btn fss-subview-prev">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <a href="#subview-a" class="fss-nav-item active"></a>
+        <a href="#subview-b" class="fss-nav-item"></a>
+        <button type="button" class="fss-nav-btn fss-subview-next">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+
+      <div fss-anchor="subview-a" class="fss-subview-item subview-a" style="background-repeat: no-repeat; background-size: cover; background-position: center center;">
+        <div id="view-2a">
+          
+        </div>
+      </div>
+
+      <div fss-anchor="subview-b" class="fss-subview-item fss-active" style="background-repeat: no-repeat; background-size: cover; background-position: center center;">
+        <div id="view-2b"></div>
+      </div>
+    </div>
+  </div>
+</div>
 <script src="{% static 'core/index/index.js' %}"></script>
+{% endblock content %}
+{% block scripts %}
+<script type="text/javascript" src="{% static 'site/js/MDB-Pro/jquery-3.4.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'site/js/MDB-Pro/popper.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'site/js/MDB-Pro/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'site/js/MDB-Pro/mdb.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'site/js/MDB-Pro/addons/mdb-fsscroller.min.js' %}"></script>
+
+<script>
+    let dummy_img_1_path = "{% static 'site/img/dummy_img_1.png' %}";
+    $(document).ready(function () {
+      var $scroller = $(".full-screen-scroller");
+      var elScroller = $scroller[0];
+      $scroller.fullScreenScroller({
+        afterChange: function() {
+          var link = window.location.hash.substr(1);
+          var idx = link.indexOf("#");
+          var anchor = idx != -1 ? link.substring(idx+1) : "";
+          if (link == "subview-b") {
+            console.log(elScroller);
+            elScroller.dispatchEvent(new Event('refreshlog'));
+          }
+        }
+      });
+    });
+</script>
 {% endblock scripts %}

@@ -47,31 +47,11 @@
     </div>
   </div>
 
-  <div fss-anchor="anchor-2" class="fss-mainview" style="background-repeat: no-repeat; background-size: cover; background-position: center center;">
-    <div class="fss-subview">
-      <div class="fss-dotted-scrollspy custom-scrollspy">
-        <button type="button" class="fss-nav-btn fss-subview-prev">
-          <i class="fas fa-chevron-left"></i>
-        </button>
-        <a href="#subview-a" class="fss-nav-item active"></a>
-        <a href="#subview-b" class="fss-nav-item"></a>
-        <button type="button" class="fss-nav-btn fss-subview-next">
-          <i class="fas fa-chevron-right"></i>
-        </button>
-      </div>
-
-      <div fss-anchor="subview-a" class="fss-subview-item subview-a" style="background-repeat: no-repeat; background-size: cover; background-position: center center;">
-        <div id="view-2a">
-          
-        </div>
-      </div>
-
-      <div fss-anchor="subview-b" class="fss-subview-item fss-active" style="background-repeat: no-repeat; background-size: cover; background-position: center center;">
-        <div id="view-2b"></div>
-      </div>
+  
+  <div fss-anchor="anchor-2" class="fss-mainview fss-active" style="background-repeat: no-repeat; background-size: cover; background-position: center center;">
+    <div id="view-2" class="info">
     </div>
   </div>
-</div>
 <script src="{% static 'hash/sample/layout.js' %}"></script>
 {% endblock content %}
 {% block scripts %}
