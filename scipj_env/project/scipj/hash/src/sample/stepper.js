@@ -9,6 +9,24 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
+var createClass = require('create-react-class');
+
+const Component = createClass({
+  iframe: function () {
+    return {
+      __html: this.props.iframe
+    }
+  },
+
+  render: function() {
+    return (
+      <div>
+        <div dangerouslySetInnerHTML={ this.iframe() } />
+      </div>
+    );
+  }
+});
+
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
@@ -88,6 +106,14 @@ function HorizontalLinearStepper() {
     setActiveStep(0);
   };
 
+  const iframe = `<iframe
+    src="https://codesandbox.io/embed/testfilespython-nz343?fontsize=12&hidenavigation=1&module=%2FTestfile.py&theme=dark&view=editor"
+    style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+    title="test_files_python"
+    allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb"
+    sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
+  ></iframe>`; 
+
   return (
     <div className={classes.root}>
       <Container maxWidth="lg" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
@@ -114,6 +140,7 @@ function HorizontalLinearStepper() {
             </div>
           ) : (
             <div>
+              <Component iframe={iframe} />
               <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
               <div>
                 <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
