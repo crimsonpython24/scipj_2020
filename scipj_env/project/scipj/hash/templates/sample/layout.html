@@ -47,12 +47,10 @@
     </div>
   </div>
 
-  
-  <div fss-anchor="anchor-2" class="fss-mainview fss-active" style="background-repeat: no-repeat; background-size: cover; background-position: center center;">
-    <div id="view-2" class="info">
+  <div fss-anchor="anchor-2" class="fss-mainview" style="background-repeat: no-repeat; background-size: cover; background-position: center center;">
+    <div id="view-2">
     </div>
   </div>
-<script src="{% static 'hash/sample/layout.js' %}"></script>
 {% endblock content %}
 {% block scripts %}
 <script type="text/javascript" src="{% static 'site/js/MDB-Pro/jquery-3.4.1.min.js' %}"></script>
@@ -79,4 +77,5 @@
       });
     });
 </script>
+<script src="{% static 'hash/sample/layout.js' %}"></script>
 {% endblock scripts %}

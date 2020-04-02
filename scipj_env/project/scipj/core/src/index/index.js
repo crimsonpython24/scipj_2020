@@ -97,8 +97,6 @@ function SimpleTabs() {
   );
 }
   
-  
-
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
