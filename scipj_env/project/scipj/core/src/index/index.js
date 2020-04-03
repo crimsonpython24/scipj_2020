@@ -12,8 +12,8 @@ import List from '@material-ui/core/List';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import AppBar from "@material-ui/core/AppBar";
 import PropTypes from "prop-types";
+import AppBar from "@material-ui/core/AppBar";
 import Box from "@material-ui/core/Box";
 
 
@@ -30,6 +30,30 @@ function getCookie(name) {
     }
   }
   return cookieValue;
+}
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <Typography component="div" role="tabpanel" hidden={value !== index} id={`scrollable-auto-tabpanel-${index}`}
+      aria-labelledby={`scrollable-auto-tab-${index}`} {...other}>
+      {value === index && <Box p={3}>{children}</Box>}
+    </Typography>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired
+};
+
+function a11yProps(index) {
+  return {
+    id: `scrollable-auto-tab-${index}`,
+    "aria-controls": `scrollable-auto-tabpanel-${index}`
+  };
 }
 
 function SimpleTabs() {
@@ -96,19 +120,7 @@ function SimpleTabs() {
     </Container>
   );
 }
-  
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired
-};
 
-function a11yProps(index) {
-  return {
-    id: `scrollable-auto-tab-${index}`,
-    "aria-controls": `scrollable-auto-tabpanel-${index}`
-  };
-}
 class TextArea extends React.Component {
   constructor(props) {
     super(props);
@@ -174,7 +186,7 @@ function ListItemLink(props) {
 function SimpleList() {
   let content = ""
   const classes = useListStyles();
-  
+
   const [logText, setLogText] = React.useState("");
 
   useEffect(() => {
@@ -211,17 +223,7 @@ function SimpleList() {
   );
 }
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
 
-  return (
-    <Typography component="div" role="tabpanel" hidden={value !== index} id={`scrollable-auto-tabpanel-${index}`}
-      aria-labelledby={`scrollable-auto-tab-${index}`} {...other}>
-      {value === index && <Box p={3}>{children}</Box>}
-    </Typography>
-  );
-}
-
-ReactDOM.render(<Navbar />, document.querySelector('#view-1'));
+ReactDOM.render(<div><Navbar/></div>, document.querySelector('#navbar'));
 ReactDOM.render(<div><SimpleTabs/></div>, document.querySelector('#view-2a'));
 ReactDOM.render(<div><SimpleList/></div>, document.querySelector('#view-2b'));
