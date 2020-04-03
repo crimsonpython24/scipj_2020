@@ -174,15 +174,19 @@ function ListItemLink(props) {
 function SimpleList() {
   let content = ""
   const classes = useListStyles();
+  
+  const [logText, setLogText] = React.useState("");
+
   useEffect(() => {
     console.log(content)
     content.addEventListener('refreshlog', (evt) => {
-      console.log("event");
+      setLogText(logText + "abc");
     })
   }, [])
 
   return (
-    <div className={classes.root} style={{ paddingTop: '64px' }}>
+    <div ref={e => {content = e}} className={classes.root} style={{ paddingTop: '64px' }}>
+      <div id="log-refresh-listener"></div>
       <Container maxWidth="lg" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
         <Typography variant="h4" style={{ paddingBottom: '30px' }}>Translated Texts</Typography>
         <List component="nav" aria-label="secondary mailbox folders">
@@ -190,8 +194,8 @@ function SimpleList() {
             <ListItemText
               primary={
                 <div style={{ paddingLeft: "-16px" }}>
-                  <Typography ref={e => {content = e}} variant="overline" display="block" gutterBottom style={{ marginBottom: "0px", marginTop: "15px" }}>
-                    Consectetur adipiscing elit, vivamus orci velit
+                  <Typography variant="h1" display="block" gutterBottom style={{ marginBottom: "0px", marginTop: "15px" }}>
+                    { logText }
                   </Typography>
                   <Typography variant="h6" className={classes.beforeText} style={{ marginBottom: "-4.5px" }}>
                     Lorem Ipsum dolor sit Amet
