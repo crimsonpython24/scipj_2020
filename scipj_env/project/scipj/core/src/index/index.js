@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import Navbar from '../../../core/src/components/Navbar';
 import Container from '@material-ui/core/Container';
@@ -15,6 +15,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Box from "@material-ui/core/Box";
+import Hidden from '@material-ui/core/Hidden';
+import IconButton from '@material-ui/core/IconButton';
+import HistoryIcon from '@material-ui/icons/History';
+import Tooltip from '@material-ui/core/Tooltip';
+import Link from '@material-ui/core/Link';
 
 
 function getCookie(name) {
@@ -72,52 +77,81 @@ function SimpleTabs() {
   const handleChange2 = (event, newValue) => {setValue2(newValue);};
 
   return (
-    <Container maxWidth="lg" style={{ paddingLeft: '0px', paddingRight: '0px', paddingTop: '128px', marginBottom: '0px'}}>
-      <Paper elevation={2} style={{ borderRadius: "7.5px" }}>
-        <AppBar position="static" color="default" style={{ boxShadow: "none" }}>
-          <Grid container spacing={0} style={{ borderBottom: "0.5px solid #e3e3e3" }}>
-            <Grid item xs={12} sm={6}>
-              <Tabs value={value1} onChange={handleChange1} indicatorColor="primary" textColor="primary" variant="scrollable"
-              scrollButtons="auto" aria-label="scrollable auto tabs example" elevation={0} style={{ paddingRight: '50px', backgroundColor: "#FFFFFF" }}>
-                <Tab label="Input Text" {...a11yProps(0)} className={translate_classes.tabs} />
-              </Tabs>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Tabs value={value2} onChange={handleChange2} indicatorColor="primary" textColor="primary" variant="scrollable"
-              scrollButtons="auto" aria-label="scrollable auto tabs example" elevation={0}>
-                <Tab label="All Caps" {...a11yProps(0)} className={translate_classes.tabs} />
-                <Tab label="All Lower" {...a11yProps(1)} className={translate_classes.tabs} />
-                <Tab label="Random String" {...a11yProps(2)} className={translate_classes.tabs} />
-              </Tabs>
-            </Grid>
-          </Grid>
-        </AppBar>
-        <div>
-          <Grid container spacing={0} >
-            <Grid item xs={12} sm={6} style={{ borderRight: "0.5px solid #e3e3e3" }}>
-              <TextArea setUpper={setUpper} setLower={setLower} setRandom={setRandom} />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TabPanel value={value2} index={0} style={{ padding: '0px' }}>
-                <TextareaAutosize disabled placeholder={upperText}
-                  style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
-                  width: "100%", minHeight: "170px", border: "0px", backgroundColor: "#FFFFFF" }} />
-              </TabPanel>
-              <TabPanel value={value2} index={1}>
-                <TextareaAutosize disabled placeholder={lowerText}
-                  style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
-                  width: "100%", minHeight: "170px", border: "0px", backgroundColor: "#FFFFFF" }} />
-              </TabPanel>
-              <TabPanel value={value2} index={2}>
-                <TextareaAutosize disabled placeholder={randomText}
-                  style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
-                  width: "100%", minHeight: "170px", border: "0px", backgroundColor: "#FFFFFF" }} />
-              </TabPanel>
-            </Grid>
-          </Grid>
+    <div>
+      <Hidden only="xs">
+        <div style={{ paddingTop: '64px' }}>
+          <Paper variant="outlined" style={{ backgroundColor: "#f2f2f2", height: "170px", paddingTop: "48px" }} elevation={0}/>
         </div>
-      </Paper>
-    </Container>
+      </Hidden>
+      <Hidden only={["sm", "md", "lg", "xl"]}>
+        <div style={{ paddingTop: '64px' }}>
+          <Paper variant="outlined" style={{ backgroundColor: "#FFFFFF", height: "84px", paddingTop: "48px" }} elevation={0}/>
+        </div>
+      </Hidden>
+      <Container maxWidth="lg" style={{ paddingLeft: '0px', paddingRight: '0px', marginBottom: '0px', position: "relative", top: "-96px" }}>
+        <Paper elevation={2} style={{ borderRadius: "15px" }}>
+          <AppBar position="static" color="default" style={{ boxShadow: "none" }}>
+            <Grid container spacing={0} style={{ borderBottom: "0.5px solid #e3e3e3", backgroundColor: "#ffffff", borderRadius: "15px 15px 0px 0px" }}>
+              <Grid item xs={6}>
+                <Tabs value={value1} onChange={handleChange1} indicatorColor="primary" textColor="primary" variant="scrollable"
+                scrollButtons="auto" aria-label="scrollable auto tabs example" elevation={0} style={{ paddingRight: '50px', borderRadius: "15px 0px 0px 0px" }}>
+                  <Tab label="Input Text" {...a11yProps(0)} className={translate_classes.tabs} />
+                </Tabs>
+              </Grid>
+              <Grid item xs={6}>
+                <Tabs value={value2} onChange={handleChange2} indicatorColor="primary" textColor="primary" variant="scrollable"
+                scrollButtons="auto" aria-label="scrollable auto tabs example" elevation={0}>
+                  <Tab label="All Caps" {...a11yProps(0)} className={translate_classes.tabs} />
+                  <Tab label="All Lower" {...a11yProps(1)} className={translate_classes.tabs} />
+                  <Tab label="Random String" {...a11yProps(2)} className={translate_classes.tabs} />
+                </Tabs>
+              </Grid>
+            </Grid>
+          </AppBar>
+          <div>
+            <Grid container spacing={0} >
+              <Hidden only="xs">
+                <Grid item xs={6} style={{ borderRight: "0.5px solid #e3e3e3" }}>
+                  <TextArea setUpper={setUpper} setLower={setLower} setRandom={setRandom} />
+                </Grid>
+              </Hidden>
+              <Hidden only={["sm", "md", "lg", "xl" ]}>
+                <Grid item xs={6} style={{ borderRight: "none" }}>
+                  <TextArea setUpper={setUpper} setLower={setLower} setRandom={setRandom} />
+                </Grid>
+              </Hidden>
+              <Grid item xs={6}>
+                <TabPanel value={value2} index={0} style={{ padding: '0px' }}>
+                  <TextareaAutosize disabled placeholder={upperText}
+                    style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
+                    width: "100%", minHeight: "122px", border: "0px", backgroundColor: "#FFFFFF" }} />
+                </TabPanel>
+                <TabPanel value={value2} index={1}>
+                  <TextareaAutosize disabled placeholder={lowerText}
+                    style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
+                    width: "100%", minHeight: "122px", border: "0px", backgroundColor: "#FFFFFF" }} />
+                </TabPanel>
+                <TabPanel value={value2} index={2}>
+                  <TextareaAutosize disabled placeholder={randomText}
+                    style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
+                    width: "100%", minHeight: "122px", border: "0px", backgroundColor: "#FFFFFF" }} />
+                </TabPanel>
+              </Grid>
+            </Grid>
+          </div>
+        </Paper>
+      </Container>
+      <Grid container direction="row" justify="center" alignItems="center">
+        <Grid item>
+          <Tooltip title="History" placement="bottom" arrow>
+            <IconButton aria-label="delete" disableRipple style={{ padding: '20px', border: "0.5px solid #e3e3e3", borderRadius: "50px" }}
+              href="#subview-b">
+              <HistoryIcon fontSize="large"/>
+            </IconButton>
+          </Tooltip>
+        </Grid>
+      </Grid>
+    </div>
   );
 }
 
@@ -173,7 +207,7 @@ class TextArea extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <TextareaAutosize onChange={this.handleChange}
           style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
-          width: "100%", minHeight: "170px", border: "0px" }} />
+          width: "100%", minHeight: "122px", border: "0px" }} />
       </form>
     );
   }
@@ -186,6 +220,7 @@ function ListItemLink(props) {
 function SimpleList() {
   let content = ""
   const classes = useListStyles();
+  const preventDefault = (event) => event.preventDefault();
 
   const [logText, setLogText] = React.useState("");
 
@@ -200,7 +235,10 @@ function SimpleList() {
     <div ref={e => {content = e}} className={classes.root} style={{ paddingTop: '64px' }}>
       <div id="log-refresh-listener"></div>
       <Container maxWidth="lg" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
-        <Typography variant="h4" style={{ paddingBottom: '30px' }}>Translated Texts</Typography>
+        <Typography variant="h4" gutterBottom style={{ marginBottom: '0px' }}>Translated Texts</Typography>
+        <Typography variant="subtitle1" style={{ paddingBottom: '30px' }}>
+          <Link href="#subview-a" onClick={preventDefault} color="inherit">Back to Translator</Link>
+        </Typography>
         <List component="nav" aria-label="secondary mailbox folders">
           <ListItemLink href="#" button>
             <ListItemText

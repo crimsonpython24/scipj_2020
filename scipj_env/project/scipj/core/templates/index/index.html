@@ -8,20 +8,14 @@
   <link href="{% static 'site/css/MDB-Pro/style.min.css' %}" rel="stylesheet" />
   <link href="{% static 'site/css/MDB-Pro/addons/fsscroller.min.css' %}" rel="stylesheet" />
   <style>
-    body {
-      background-color: #FFFFFF;
-    }
     .info {
       position: absolute; top: 0; left: 0; width: 100%;
       display: flex; flex-direction: column; align-items: center;
       justify-content: center; font-size: 32px;
     }
-    .custom-scrollspy {
-      background-color: #212121f5;
-    }
     textarea:focus {outline:none; resize: none;}
     textarea {resize:none;}
-    
+    button:focus {outline:none}
   </style>
 {% endblock styles %}
 
@@ -49,7 +43,7 @@
 
   <div fss-anchor="anchor-2" class="fss-mainview" style="background-repeat: no-repeat; background-size: cover; background-position: center center;">
     <div class="fss-subview">
-      <div class="fss-dotted-scrollspy custom-scrollspy">
+      <!-- <div class="fss-dotted-scrollspy custom-scrollspy">
         <button type="button" class="fss-nav-btn fss-subview-prev">
           <i class="fas fa-chevron-left"></i>
         </button>
@@ -58,7 +52,7 @@
         <button type="button" class="fss-nav-btn fss-subview-next">
           <i class="fas fa-chevron-right"></i>
         </button>
-      </div>
+      </div> -->
 
       <div fss-anchor="subview-a" class="fss-subview-item subview-a" style="background-repeat: no-repeat; background-size: cover; background-position: center center;">
         <div id="view-2a">
