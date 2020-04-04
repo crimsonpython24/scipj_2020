@@ -65,7 +65,7 @@ function SimpleTabs() {
   const translate_classes = useTranslateStyles();
 
   const [value1, setValue1] = React.useState(0);
-  const [value2, setValue2] = React.useState(1);
+  const [value2, setValue2] = React.useState(0);
 
   const [upperText, setUpper] = React.useState("");
   const [lowerText, setLower] = React.useState("");
@@ -80,12 +80,12 @@ function SimpleTabs() {
     <div>
       <Hidden only="xs">
         <div style={{ paddingTop: '64px' }}>
-          <Paper variant="outlined" style={{ backgroundColor: "#f2f2f2", height: "170px", paddingTop: "48px" }} elevation={0}/>
+          <Paper variant="outlined" style={{ backgroundColor: "#f2f2f2", height: "150px" }} elevation={0}/>
         </div>
       </Hidden>
       <Hidden only={["sm", "md", "lg", "xl"]}>
         <div style={{ paddingTop: '64px' }}>
-          <Paper variant="outlined" style={{ backgroundColor: "#FFFFFF", height: "84px", paddingTop: "48px" }} elevation={0}/>
+          <Paper variant="outlined" style={{ backgroundColor: "#FFFFFF", height: "90px" }} elevation={0}/>
         </div>
       </Hidden>
       <Container maxWidth="lg" style={{ paddingLeft: '0px', paddingRight: '0px', marginBottom: '0px', position: "relative", top: "-96px" }}>
@@ -99,12 +99,22 @@ function SimpleTabs() {
                 </Tabs>
               </Grid>
               <Grid item xs={6}>
-                <Tabs value={value2} onChange={handleChange2} indicatorColor="primary" textColor="primary" variant="scrollable"
-                scrollButtons="auto" aria-label="scrollable auto tabs example" elevation={0}>
-                  <Tab label="All Caps" {...a11yProps(0)} className={translate_classes.tabs} />
-                  <Tab label="All Lower" {...a11yProps(1)} className={translate_classes.tabs} />
-                  <Tab label="Random String" {...a11yProps(2)} className={translate_classes.tabs} />
-                </Tabs>
+                <Hidden only={["sm", "xs"]}>
+                  <Tabs value={value2} onChange={handleChange2} indicatorColor="primary" textColor="primary" variant="scrollable"
+                  scrollButtons="auto" aria-label="scrollable auto tabs example" elevation={0}>
+                    <Tab label="All Caps" {...a11yProps(0)} className={translate_classes.tabs} />
+                    <Tab label="All Lower" {...a11yProps(1)} className={translate_classes.tabs} />
+                    <Tab label="Random String" {...a11yProps(2)} className={translate_classes.tabs} />
+                  </Tabs>
+                </Hidden>
+                <Hidden only={["md", "lg", "xl"]}>
+                  <Tabs value={value2} onChange={handleChange2} indicatorColor="primary" textColor="primary" variant="scrollable"
+                    scrollButtons="auto" aria-label="scrollable auto tabs example" elevation={0}>
+                      <Tab label="All Caps" {...a11yProps(0)} className={translate_classes.tabs} />
+                      <Tab label="All Lower" {...a11yProps(1)} className={translate_classes.tabs} />
+                      <Tab label="Random String" {...a11yProps(2)} className={translate_classes.tabs} />
+                    </Tabs>
+                </Hidden>
               </Grid>
             </Grid>
           </AppBar>
@@ -124,22 +134,27 @@ function SimpleTabs() {
                 <TabPanel value={value2} index={0} style={{ padding: '0px' }}>
                   <TextareaAutosize disabled placeholder={upperText}
                     style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
-                    width: "100%", minHeight: "122px", border: "0px", backgroundColor: "#FFFFFF" }} />
+                    width: "100%", minHeight: "170px", border: "0px", backgroundColor: "#FFFFFF" }} />
                 </TabPanel>
                 <TabPanel value={value2} index={1}>
                   <TextareaAutosize disabled placeholder={lowerText}
                     style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
-                    width: "100%", minHeight: "122px", border: "0px", backgroundColor: "#FFFFFF" }} />
+                    width: "100%", minHeight: "170px", border: "0px", backgroundColor: "#FFFFFF" }} />
                 </TabPanel>
                 <TabPanel value={value2} index={2}>
                   <TextareaAutosize disabled placeholder={randomText}
                     style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
-                    width: "100%", minHeight: "122px", border: "0px", backgroundColor: "#FFFFFF" }} />
+                    width: "100%", minHeight: "170px", border: "0px", backgroundColor: "#FFFFFF" }} />
                 </TabPanel>
               </Grid>
             </Grid>
           </div>
         </Paper>
+        <Grid container direction="row" justify="flex-end" alignItems="center">
+          <Typography variant="caption" display="block" gutterBottom style={{ paddingTop: "15px", paddingRight: "25px" }}>
+            Due to time constraints, this box is basically a poor man's version of Google Translate
+          </Typography>
+        </Grid>
       </Container>
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item>
@@ -207,7 +222,7 @@ class TextArea extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <TextareaAutosize onChange={this.handleChange}
           style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
-          width: "100%", minHeight: "122px", border: "0px" }} />
+          width: "100%", minHeight: "170px", border: "0px" }} />
       </form>
     );
   }
