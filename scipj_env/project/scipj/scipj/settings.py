@@ -39,7 +39,7 @@ DEBUG = True
 if os.environ.get('DJANGO_USE_DEBUG'):
     DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['crimsonpython24.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition

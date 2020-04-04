@@ -45,9 +45,7 @@ function getCookie(name) {
 }
 
 const useStyles = makeStyles({
-  media: {
-    height: 300,
-  },
+  media: {height: 300,},
 });
 
 function MediaCard() {
@@ -62,9 +60,7 @@ function MediaCard() {
           title="Contemplative Reptile"
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Lizard
-          </Typography>
+          <Typography gutterBottom variant="h5" component="h2">Lizard</Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
             across all continents except Antarctica
@@ -112,9 +108,7 @@ function SimpleTabs() {
   const [lowerText, setLower] = React.useState("");
   const [randomText, setRandom] = React.useState("");
 
-  const handleChange1 = (event, newValue) => {
-    setValue1(newValue);
-  };
+  const handleChange1 = (event, newValue) => {setValue1(newValue);};
   const handleChange2 = (event, newValue) => {setValue2(newValue);};
 
   return (
@@ -129,13 +123,16 @@ function SimpleTabs() {
           <Paper variant="outlined" style={{ backgroundColor: "#FFFFFF", height: "90px" }} elevation={0}/>
         </div>
       </Hidden>
-      <Container maxWidth="lg" style={{ paddingLeft: '0px', paddingRight: '0px', marginBottom: '0px', position: "relative", top: "-96px" }}>
+      <Container maxWidth="lg" style={{ paddingLeft: '0px', paddingRight: '0px',
+                                        marginBottom: '0px', position: "relative", top: "-96px" }}>
         <Paper elevation={2} style={{ borderRadius: "15px" }}>
           <AppBar position="static" color="default" style={{ boxShadow: "none" }}>
-            <Grid container spacing={0} style={{ borderBottom: "0.5px solid #e3e3e3", backgroundColor: "#ffffff", borderRadius: "15px 15px 0px 0px" }}>
+            <Grid container spacing={0} style={{ borderBottom: "0.5px solid #e3e3e3", backgroundColor: "#ffffff",
+                                                  borderRadius: "15px 15px 0px 0px" }}>
               <Grid item xs={6}>
                 <Tabs value={value1} onChange={handleChange1} indicatorColor="primary" textColor="primary" variant="scrollable"
-                scrollButtons="auto" aria-label="scrollable auto tabs example" elevation={0} style={{ paddingRight: '50px', borderRadius: "15px 0px 0px 0px" }}>
+                  scrollButtons="auto" aria-label="scrollable auto tabs example" elevation={0} 
+                  style={{ paddingRight: '50px', borderRadius: "15px 0px 0px 0px" }}>
                   <Tab label="Input Text" {...a11yProps(0)} className={translate_classes.tabs} />
                 </Tabs>
               </Grid>
@@ -151,10 +148,10 @@ function SimpleTabs() {
                 <Hidden only={["md", "lg", "xl"]}>
                   <Tabs value={value2} onChange={handleChange2} indicatorColor="primary" textColor="primary" variant="scrollable"
                     scrollButtons="auto" aria-label="scrollable auto tabs example" elevation={0}>
-                      <Tab label="All Caps" {...a11yProps(0)} className={translate_classes.tabs} />
-                      <Tab label="All Lower" {...a11yProps(1)} className={translate_classes.tabs} />
-                      <Tab label="Random String" {...a11yProps(2)} className={translate_classes.tabs} />
-                    </Tabs>
+                    <Tab label="All Caps" {...a11yProps(0)} className={translate_classes.tabs} />
+                    <Tab label="All Lower" {...a11yProps(1)} className={translate_classes.tabs} />
+                    <Tab label="Random String" {...a11yProps(2)} className={translate_classes.tabs} />
+                  </Tabs>
                 </Hidden>
               </Grid>
             </Grid>
@@ -197,7 +194,8 @@ function SimpleTabs() {
           </Typography>
         </Grid>
       </Container>
-      <Grid container direction="row" justify="center" alignItems="center" spacing={5} style={{ width: '232px', marginRight: 'auto', marginLeft: 'auto' }}>
+      <Grid container direction="row" justify="center" alignItems="center" spacing={5}
+            style={{ width: '232px', marginRight: 'auto', marginLeft: 'auto' }}>
         <Grid item xs={6}>
           <Tooltip title="History" placement="bottom" arrow>
             <IconButton aria-label="history" disableRipple style={{ padding: '20px', border: "0.5px solid #e3e3e3", borderRadius: "50px" }}

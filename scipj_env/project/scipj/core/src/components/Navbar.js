@@ -18,33 +18,30 @@ import FirstPageIcon from '@material-ui/icons/FirstPage';
 import Link from '@material-ui/core/Link';
 import AllInboxIcon from '@material-ui/icons/AllInbox';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import GitHubIcon from '@material-ui/icons/GitHub';
+
 
 export default function PersistentDrawerLeft() {
   const classes = useNavbarStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+  const handleDrawerOpen = () => {setOpen(true);};
+  const handleDrawerClose = () => {setOpen(false);};
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
   const preventDefault = (event) => event.preventDefault();
 
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="fixed" className={clsx(classes.appBar, {[classes.appBarShift]: open,})} color="inherit" elevation={0} style={{ borderBottom: "0.5px solid #e3e3e3" }}>
+      <AppBar position="fixed" className={clsx(classes.appBar, {[classes.appBarShift]: open,})} color="inherit"
+        elevation={0} style={{ borderBottom: "0.5px solid #e3e3e3" }}>
         <Toolbar styles={{ "border-bottom": "1px solid #DEDEDE"}}>
           <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerOpen} edge="start"
             className={clsx(classes.menuButton, open && classes.hide)}>
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            News
-          </Typography>
+          <Typography variant="h6" className={classes.title}>News</Typography>
         </Toolbar>
       </AppBar>
       <Drawer className={classes.drawer} variant="persistent" anchor="left" open={open}
@@ -66,6 +63,14 @@ export default function PersistentDrawerLeft() {
           </ListItem>
         </List>
         <Divider />
+        <List>
+          <ListItem button key="Github">
+            <ListItemIcon><GitHubIcon/></ListItemIcon>
+            <Typography variant="body1">
+              <Link href="https://github.com/crimsonpython24/scipj_2020" color="inherit">Visit on Github!</Link>
+            </Typography>
+          </ListItem>
+        </List>
       </Drawer>
     </div>
   );
