@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import Navbar from '../../../core/src/components/Navbar';
 import Container from '@material-ui/core/Container';
+import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { useListStyles, useTranslateStyles } from '../styles/sample/layout';
@@ -20,7 +21,12 @@ import IconButton from '@material-ui/core/IconButton';
 import HistoryIcon from '@material-ui/icons/History';
 import Tooltip from '@material-ui/core/Tooltip';
 import Link from '@material-ui/core/Link';
-import Fab from '@material-ui/core/Fab';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import EjectIcon from '@material-ui/icons/Eject';
 
 
 function getCookie(name) {
@@ -36,6 +42,40 @@ function getCookie(name) {
     }
   }
   return cookieValue;
+}
+
+const useStyles = makeStyles({
+  media: {
+    height: 300,
+  },
+});
+
+function MediaCard() {
+  const classes = useStyles();
+
+  return (
+    <Container maxWidth="lg" style={{ paddingLeft: '0px', paddingRight: '0px', paddingTop: "64px" }}>
+      <Card elevation={0}>
+        <CardMedia
+          className={classes.media}
+          image="https://material-ui.com/static/images/cards/contemplative-reptile.jpg"
+          title="Contemplative Reptile"
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="h2">
+            Lizard
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
+            across all continents except Antarctica
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <Button size="small" color="primary" href="#anchor-2">Get Started</Button>
+        </CardActions>
+      </Card>
+    </Container>
+  );
 }
 
 function TabPanel(props) {
@@ -157,12 +197,20 @@ function SimpleTabs() {
           </Typography>
         </Grid>
       </Container>
-      <Grid container direction="row" justify="center" alignItems="center">
-        <Grid item>
+      <Grid container direction="row" justify="center" alignItems="center" spacing={5} style={{ width: '232px', marginRight: 'auto', marginLeft: 'auto' }}>
+        <Grid item xs={6}>
           <Tooltip title="History" placement="bottom" arrow>
-            <IconButton aria-label="delete" disableRipple style={{ padding: '20px', border: "0.5px solid #e3e3e3", borderRadius: "50px" }}
+            <IconButton aria-label="history" disableRipple style={{ padding: '20px', border: "0.5px solid #e3e3e3", borderRadius: "50px" }}
               href="#subview-b">
               <HistoryIcon fontSize="large"/>
+            </IconButton>
+          </Tooltip>
+        </Grid>
+        <Grid item xs={6}>
+          <Tooltip title="Back" placement="bottom" arrow>
+            <IconButton aria-label="back" disableRipple style={{ padding: '20px', border: "0.5px solid #e3e3e3", borderRadius: "50px" }}
+              href="#anchor-1">
+              <EjectIcon fontSize="large"/>
             </IconButton>
           </Tooltip>
         </Grid>
@@ -275,6 +323,7 @@ function SimpleList() {
 }
 
 
-ReactDOM.render(<div><Navbar/></div>, document.querySelector('#navbar'));
-ReactDOM.render(<div><SimpleTabs/></div>, document.querySelector('#view-2a'));
-ReactDOM.render(<div><SimpleList/></div>, document.querySelector('#view-2b'));
+ReactDOM.render(<Navbar/>, document.querySelector('#navbar'));
+ReactDOM.render(<MediaCard/>, document.querySelector('#view-1'));
+ReactDOM.render(<SimpleTabs/>, document.querySelector('#view-2a'));
+ReactDOM.render(<SimpleList/>, document.querySelector('#view-2b'));

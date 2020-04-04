@@ -15,6 +15,9 @@ import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import TrendingFlatIcon from '@material-ui/icons/TrendingFlat';
 import Tooltip from '@material-ui/core/Tooltip';
+import Fab from '@material-ui/core/Fab';
+import SystemUpdateAltIcon from '@material-ui/icons/SystemUpdateAlt';
+import Chip from '@material-ui/core/Chip';
 
 
 function getCookie(name) {
@@ -60,6 +63,13 @@ function SimpleContainer() {
           </Grid>
         </div>
       </Container>
+      <Grid container direction="row" justify="flex-end" alignItems="flex-end">
+        <Grid item>
+          <Fab variant="extended" size="medium" color="primary" aria-label="add" href="#anchor-2">
+            <SystemUpdateAltIcon className={layout_classes.extendedIcon}/>  Step through
+          </Fab>
+        </Grid>
+      </Grid>
     </div>
   );
 }
@@ -178,6 +188,10 @@ class TextInput extends React.Component {
 function HorizontalLinearStepper() {
   const classes = useStyles();
   const svgClasses = useIconStyles();
+  
+  const handleDelete = () => {
+    console.info('You clicked the delete icon.');
+  };
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
@@ -269,9 +283,16 @@ function HorizontalLinearStepper() {
                       </Tooltip>
                     </div>
                   </div>
+                  <div style={{ paddingLeft: "20px", paddingRight: "20px", paddingBottom: "20px" }} >
+                    <Chip size="small" label="Hint" onDelete={handleDelete} color="primary" />
+                    <Typography variant="caption" display="block" gutterBottom style={{ display: 'inline', paddingLeft: '17px' }}>
+                      Input your value at the left-hand box
+                    </Typography>
+                  </div>
                 </Paper>
               </Container>
               <Button onClick={handleReset} className={classes.button}>Reset</Button>
+              <Button href="#anchor-1" variant="outlined" color="primary">Back to Top</Button>
             </div>
           ) : (
             <div>
@@ -299,6 +320,6 @@ function HorizontalLinearStepper() {
 }
 
 
-ReactDOM.render(<div><Navbar/></div>, document.querySelector('#navbar'));
-ReactDOM.render(<div><SimpleContainer/></div>, document.querySelector('#view-1'));
-ReactDOM.render(<div><HorizontalLinearStepper></HorizontalLinearStepper></div>, document.querySelector('#view-2'));
+ReactDOM.render(<Navbar/>, document.querySelector('#navbar'));
+ReactDOM.render(<SimpleContainer/>, document.querySelector('#view-1'));
+ReactDOM.render(<HorizontalLinearStepper/>, document.querySelector('#view-2'));

@@ -29,6 +29,7 @@
       margin:0px;
       padding:0px;
     }
+    button:focus {outline:none}
   </style>
 {% endblock styles %}
 
@@ -38,17 +39,6 @@
 </div>
 
 <div class="full-screen-scroller">
-  <div class="fss-dotted-scrollspy custom-scrollspy">
-    <button type="button" class="fss-nav-btn fss-mainview-prev">
-      <i class="fas fa-chevron-up"></i>
-    </button>
-    <a href="#anchor-1" class="fss-nav-item active"></a>
-    <a href="#anchor-2" class="fss-nav-item"></a>
-    <button type="button" class="fss-nav-btn fss-mainview-next">
-      <i class="fas fa-chevron-down"></i>
-    </button>
-  </div>
-
   <div fss-anchor="anchor-1" class="fss-mainview fss-active" style="background-repeat: no-repeat; background-size: cover; background-position: center center;">
     <div id="view-1" class="info">
     </div>
