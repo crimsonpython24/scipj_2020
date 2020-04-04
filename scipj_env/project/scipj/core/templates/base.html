@@ -17,9 +17,10 @@
     <div id="testing-space">{% block testing_space %}{% endblock testing_space %}</div>
     {% block content %}{% endblock content %}
   </body>
-  <script>
-    let user_logged_in = false;
-
-  </script>
-  {% block scripts %}{% endblock scripts %}
+  {% block scripts %}
+    <script>
+      let index_url = "{% url 'index' %}";
+      let sample_url = "{% url 'sample' %}";
+    </script>
+  {% endblock scripts %}
 </html>

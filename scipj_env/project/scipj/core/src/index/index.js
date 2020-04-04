@@ -20,6 +20,7 @@ import IconButton from '@material-ui/core/IconButton';
 import HistoryIcon from '@material-ui/icons/History';
 import Tooltip from '@material-ui/core/Tooltip';
 import Link from '@material-ui/core/Link';
+import Fab from '@material-ui/core/Fab';
 
 
 function getCookie(name) {
@@ -252,16 +253,13 @@ function SimpleList() {
       <Container maxWidth="lg" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
         <Typography variant="h4" gutterBottom style={{ marginBottom: '0px' }}>Translated Texts</Typography>
         <Typography variant="subtitle1" style={{ paddingBottom: '30px' }}>
-          <Link href="#subview-a" onClick={preventDefault} color="inherit">Back to Translator</Link>
+          <Link href="#subview-a" color="inherit">Back to Translator</Link>
         </Typography>
         <List component="nav" aria-label="secondary mailbox folders">
           <ListItemLink href="#" button>
             <ListItemText
               primary={
                 <div style={{ paddingLeft: "-16px" }}>
-                  <Typography variant="h1" display="block" gutterBottom style={{ marginBottom: "0px", marginTop: "15px" }}>
-                    { logText }
-                  </Typography>
                   <Typography variant="h6" className={classes.beforeText} style={{ marginBottom: "-4.5px" }}>
                     Lorem Ipsum dolor sit Amet
                   </Typography>

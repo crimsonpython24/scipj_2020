@@ -44,17 +44,6 @@
 
   <div fss-anchor="anchor-2" class="fss-mainview" style="background-repeat: no-repeat; background-size: cover; background-position: center center;">
     <div class="fss-subview">
-      <!-- <div class="fss-dotted-scrollspy custom-scrollspy">
-        <button type="button" class="fss-nav-btn fss-subview-prev">
-          <i class="fas fa-chevron-left"></i>
-        </button>
-        <a href="#subview-a" class="fss-nav-item active"></a>
-        <a href="#subview-b" class="fss-nav-item"></a>
-        <button type="button" class="fss-nav-btn fss-subview-next">
-          <i class="fas fa-chevron-right"></i>
-        </button>
-      </div> -->
-
       <div fss-anchor="subview-a" class="fss-subview-item subview-a" style="background-repeat: no-repeat; background-size: cover; background-position: center center;">
         <div id="view-2a">
           
@@ -67,7 +56,6 @@
     </div>
   </div>
 </div>
-<script src="{% static 'core/index/index.js' %}"></script>
 {% endblock content %}
 {% block scripts %}
 <script type="text/javascript" src="{% static 'site/js/MDB-Pro/jquery-3.4.1.min.js' %}"></script>
@@ -77,20 +65,23 @@
 <script type="text/javascript" src="{% static 'site/js/MDB-Pro/addons/mdb-fsscroller.min.js' %}"></script>
 
 <script>
-    let dummy_img_1_path = "{% static 'site/img/dummy_img_1.png' %}";
-    $(document).ready(function () {
-      var ell = $('#log-refresh-listener')[0];
-      $(".full-screen-scroller").fullScreenScroller({
-        afterChange: function() {
-          var link = window.location.hash.substr(1);
-          //var idx = link.indexOf("#");
-          //var anchor = idx != -1 ? link.substring(idx+1) : "";
-          if (link == "subview-b") {
-            //console.log(elScroller);
-            ell.dispatchEvent(new CustomEvent('refreshlog', { bubbles: true }));
-          }
+  $(document).ready(function () {
+    var ell = $('#log-refresh-listener')[0];
+    $(".full-screen-scroller").fullScreenScroller({
+      afterChange: function() {
+        var link = window.location.hash.substr(1);
+        //var idx = link.indexOf("#");
+        //var anchor = idx != -1 ? link.substring(idx+1) : "";
+        if (link == "subview-b") {
+          //console.log(elScroller);
+          ell.dispatchEvent(new CustomEvent('refreshlog', { bubbles: true }));
         }
-      });
+      }
     });
+  });
+  
+  let index_url = "{% url 'index' %}";
+  let sample_url = "{% url 'sample' %}";
 </script>
+<script src="{% static 'core/index/index.js' %}"></script>
 {% endblock scripts %}

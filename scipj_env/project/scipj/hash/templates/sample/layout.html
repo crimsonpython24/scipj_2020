@@ -24,7 +24,11 @@
     .MuiFormHelperText-contained {
       margin-left: 0px !important;
     }
-    
+    form, table {
+      display:inline;
+      margin:0px;
+      padding:0px;
+    }
   </style>
 {% endblock styles %}
 
@@ -51,9 +55,11 @@
   </div>
 
   <div fss-anchor="anchor-2" class="fss-mainview" style="background-repeat: no-repeat; background-size: cover; background-position: center center;">
-    <div id="view-2">
+    <div id="view-2" class="">
     </div>
   </div>
+
+</div>
 {% endblock content %}
 {% block scripts %}
 <script type="text/javascript" src="{% static 'site/js/MDB-Pro/jquery-3.4.1.min.js' %}"></script>
@@ -63,7 +69,11 @@
 <script type="text/javascript" src="{% static 'site/js/MDB-Pro/addons/mdb-fsscroller.min.js' %}"></script>
 
 <script>
-    let dummy_img_1_path = "{% static 'site/img/dummy_img_1.png' %}";
+    $(document).ready(function () {
+      $(".full-screen-scroller").fullScreenScroller();
+    });
+    let index_url = "{% url 'index' %}";
+    let sample_url = "{% url 'sample' %}";
 </script>
 <script src="{% static 'hash/sample/layout.js' %}"></script>
 {% endblock scripts %}

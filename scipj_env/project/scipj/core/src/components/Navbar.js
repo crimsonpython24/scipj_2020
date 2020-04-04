@@ -12,6 +12,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import useNavbarStyles from '../styles/components/Navbar';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import FirstPageIcon from '@material-ui/icons/FirstPage';
+import Link from '@material-ui/core/Link';
+import AllInboxIcon from '@material-ui/icons/AllInbox';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 export default function PersistentDrawerLeft() {
   const classes = useNavbarStyles();
@@ -25,6 +31,7 @@ export default function PersistentDrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  const preventDefault = (event) => event.preventDefault();
 
   return (
     <div className={classes.root}>
@@ -47,6 +54,17 @@ export default function PersistentDrawerLeft() {
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </div>
+        <Divider />
+        <List>
+          <ListItem button key="Index">
+            <ListItemIcon><FirstPageIcon/></ListItemIcon>
+            <Typography variant="body1"><Link href={index_url} color="inherit">Index</Link></Typography>
+          </ListItem>
+          <ListItem button key="Sample">
+            <ListItemIcon><AllInboxIcon/></ListItemIcon>
+            <Typography variant="body1"><Link href={sample_url} color="inherit">Sample</Link></Typography>
+          </ListItem>
+        </List>
         <Divider />
       </Drawer>
     </div>
