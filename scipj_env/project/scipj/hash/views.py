@@ -15,6 +15,5 @@ class HashDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         algorithm = Algorithm.objects.get()
-        print(algorithm.stepper_header)
         context = super(HashDetailView, self).get_context_data(**kwargs)
         return context
