@@ -45,7 +45,7 @@ function getCookie(name) {
 }
 
 const useStyles = makeStyles({
-  media: {height: 300,},
+  media: {height: 400,},
 });
 
 function MediaCard() {
@@ -56,7 +56,7 @@ function MediaCard() {
       <Card elevation={0}>
         <CardMedia
           className={classes.media}
-          image="https://material-ui.com/static/images/cards/contemplative-reptile.jpg"
+          image={ idx_image }
           title="Contemplative Reptile"
         />
         <CardContent>
@@ -103,9 +103,14 @@ function SimpleTabs() {
   const [value1, setValue1] = React.useState(0);
   const [value2, setValue2] = React.useState(0);
 
-  const [upperText, setUpper] = React.useState("");
-  const [lowerText, setLower] = React.useState("");
-  const [randomText, setRandom] = React.useState("");
+  const [MD5Text,       setMD5]    = React.useState("");
+  const [SHA1Text,      setSHA1]   = React.useState("");
+  const [SHA2Text,      setSHA2]   = React.useState("");
+  const [Ripemd160Text, setRip160] = React.useState("");
+  const [BcryptText,    setBcrypt] = React.useState("");
+  const [Blake2Text,    setBlake2] = React.useState("");
+  const [WhirlpoolText, setWhirl]  = React.useState("");
+  const [SHA3Text,      setSHA3]   = React.useState("");
 
   const handleChange1 = (event, newValue) => {setValue1(newValue);};
   const handleChange2 = (event, newValue) => {setValue2(newValue);};
@@ -139,17 +144,27 @@ function SimpleTabs() {
                 <Hidden only={["sm", "xs"]}>
                   <Tabs value={value2} onChange={handleChange2} indicatorColor="primary" textColor="primary" variant="scrollable"
                   scrollButtons="auto" aria-label="scrollable auto tabs example" elevation={0}>
-                    <Tab label="All Caps" {...a11yProps(0)} className={translate_classes.tabs} />
-                    <Tab label="All Lower" {...a11yProps(1)} className={translate_classes.tabs} />
-                    <Tab label="Random String" {...a11yProps(2)} className={translate_classes.tabs} />
+                    <Tab label="MD5" {...a11yProps(0)} className={translate_classes.tabs} />
+                    <Tab label="SHA-1" {...a11yProps(1)} className={translate_classes.tabs} />
+                    <Tab label="SHA-2" {...a11yProps(2)} className={translate_classes.tabs} />
+                    <Tab label="RIPEMED-160" {...a11yProps(3)} className={translate_classes.tabs} />
+                    <Tab label="Bcrypt" {...a11yProps(4)} className={translate_classes.tabs} />
+                    <Tab label="BLAKE2(b, 64-bit)" {...a11yProps(5)} className={translate_classes.tabs} />
+                    <Tab label="Whirlpool" {...a11yProps(6)} className={translate_classes.tabs} />
+                    <Tab label="SHA-3" {...a11yProps(7)} className={translate_classes.tabs} />
                   </Tabs>
                 </Hidden>
                 <Hidden only={["md", "lg", "xl"]}>
                   <Tabs value={value2} onChange={handleChange2} indicatorColor="primary" textColor="primary" variant="scrollable"
-                    scrollButtons="auto" aria-label="scrollable auto tabs example" elevation={0}>
-                    <Tab label="All Caps" {...a11yProps(0)} className={translate_classes.tabs} />
-                    <Tab label="All Lower" {...a11yProps(1)} className={translate_classes.tabs} />
-                    <Tab label="Random String" {...a11yProps(2)} className={translate_classes.tabs} />
+                  scrollButtons="auto" aria-label="scrollable auto tabs example" elevation={0}>
+                    <Tab label="MD5" {...a11yProps(0)} className={translate_classes.tabs} />
+                    <Tab label="SHA-1" {...a11yProps(1)} className={translate_classes.tabs} />
+                    <Tab label="SHA-2" {...a11yProps(2)} className={translate_classes.tabs} />
+                    <Tab label="RIPEMED-160" {...a11yProps(3)} className={translate_classes.tabs} />
+                    <Tab label="Bcrypt" {...a11yProps(4)} className={translate_classes.tabs} />
+                    <Tab label="BLAKE2(b, 64-bit)" {...a11yProps(5)} className={translate_classes.tabs} />
+                    <Tab label="Whirlpool" {...a11yProps(6)} className={translate_classes.tabs} />
+                    <Tab label="SHA-3" {...a11yProps(7)} className={translate_classes.tabs} />
                   </Tabs>
                 </Hidden>
               </Grid>
@@ -159,27 +174,54 @@ function SimpleTabs() {
             <Grid container spacing={0} >
               <Hidden only="xs">
                 <Grid item xs={6} style={{ borderRight: "0.5px solid #e3e3e3" }}>
-                  <TextArea setUpper={setUpper} setLower={setLower} setRandom={setRandom} />
+                  <TextArea setMD5={setMD5} setSHA1={setSHA1} setSHA2={setSHA2} setRip160={setRip160}
+                    setBcrypt={setBcrypt} setBlake2={setBlake2} setWhirl={setWhirl} setSHA3={setSHA3}/>
                 </Grid>
               </Hidden>
               <Hidden only={["sm", "md", "lg", "xl" ]}>
                 <Grid item xs={6} style={{ borderRight: "none" }}>
-                  <TextArea setUpper={setUpper} setLower={setLower} setRandom={setRandom} />
+                  <TextArea setMD5={setMD5} setSHA1={setSHA1} setSHA2={setSHA2} setRip160={setRip160}
+                    setBcrypt={setBcrypt} setBlake2={setBlake2} setWhirl={setWhirl} setSHA3={setSHA3}/>
                 </Grid>
               </Hidden>
               <Grid item xs={6}>
                 <TabPanel value={value2} index={0} style={{ padding: '0px' }}>
-                  <TextareaAutosize disabled placeholder={upperText}
+                  <TextareaAutosize disabled placeholder={MD5Text}
                     style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
                     width: "100%", minHeight: "170px", border: "0px", backgroundColor: "#FFFFFF" }} />
                 </TabPanel>
                 <TabPanel value={value2} index={1}>
-                  <TextareaAutosize disabled placeholder={lowerText}
+                  <TextareaAutosize disabled placeholder={SHA1Text}
                     style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
                     width: "100%", minHeight: "170px", border: "0px", backgroundColor: "#FFFFFF" }} />
                 </TabPanel>
                 <TabPanel value={value2} index={2}>
-                  <TextareaAutosize disabled placeholder={randomText}
+                  <TextareaAutosize disabled placeholder={SHA2Text}
+                    style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
+                    width: "100%", minHeight: "170px", border: "0px", backgroundColor: "#FFFFFF" }} />
+                </TabPanel>
+                <TabPanel value={value2} index={3}>
+                  <TextareaAutosize disabled placeholder={Ripemd160Text}
+                    style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
+                    width: "100%", minHeight: "170px", border: "0px", backgroundColor: "#FFFFFF" }} />
+                </TabPanel>
+                <TabPanel value={value2} index={4}>
+                  <TextareaAutosize disabled placeholder={BcryptText}
+                    style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
+                    width: "100%", minHeight: "170px", border: "0px", backgroundColor: "#FFFFFF" }} />
+                </TabPanel>
+                <TabPanel value={value2} index={5}>
+                  <TextareaAutosize disabled placeholder={Blake2Text}
+                    style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
+                    width: "100%", minHeight: "170px", border: "0px", backgroundColor: "#FFFFFF" }} />
+                </TabPanel>
+                <TabPanel value={value2} index={6}>
+                  <TextareaAutosize disabled placeholder={WhirlpoolText}
+                    style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
+                    width: "100%", minHeight: "170px", border: "0px", backgroundColor: "#FFFFFF" }} />
+                </TabPanel>
+                <TabPanel value={value2} index={7}>
+                  <TextareaAutosize disabled placeholder={SHA3Text}
                     style={{ paddingLeft: '30px', paddingRight: '30px', paddingTop: '15px', margin: "0px",
                     width: "100%", minHeight: "170px", border: "0px", backgroundColor: "#FFFFFF" }} />
                 </TabPanel>
@@ -219,11 +261,16 @@ function SimpleTabs() {
 class TextArea extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: '', upper: '', lower: '', random: ''};
+    this.state = {value: '', MD5: '', SHA1: '', SHA2: '', Ripemd160: '', Bcrypt: '', Blake2: '', Whirl: '', SHA3: ''};
 
-    this.setUpper = props.setUpper;
-    this.setLower = props.setLower;
-    this.setRandom = props.setRandom;
+    this.setMD5 = props.setMD5;
+    this.setSHA1 = props.setSHA1;
+    this.setSHA2 = props.setSHA2;
+    this.setRip160 = props.setRip160;
+    this.setBcrypt = props.setBcrypt;
+    this.setBlake2 = props.setBlake2;
+    this.setWhirl = props.setWhirl;
+    this.setSHA3 = props.setSHA3;
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -244,15 +291,20 @@ class TextArea extends React.Component {
           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
           'X-Requested-With': 'XMLHttpRequest'
         }),
-        body: `translateText=${event.target.value}` 
-
+        body: `translateText=${event.target.value}`
     }).then(function(response) {
         return response.json();
     }).then(function(data) {
-      me.setState({upper: data.upperText, lower: data.lowerText, random: data.randomText});
-      me.setUpper(data.upperText);
-      me.setLower(data.lowerText);
-      me.setRandom(data.randomText);
+      me.setState({MD5: data.MD5Text, SHA1: data.SHA1Text, SHA2: data.SHA2Text, Ripemd160: data.Ripemd160Text,
+                   Bcrypt: data.BcryptText, Blake2: data.Blake2Text, Whirl: data.WhirlpoolText, SHA3: data.SHA3Text});
+      me.setMD5(data.MD5Text);
+      me.setSHA1(data.SHA1Text);
+      me.setSHA2(data.SHA2Text);
+      me.setRip160(data.Ripemd160Text);
+      me.setBcrypt(data.BcryptText);
+      me.setBlake2(data.Blake2Text);
+      me.setWhirl(data.WhirlpoolText);
+      me.setSHA3(data.MD5Text);
     }).catch(function(ex) {
         console.log("parsing failed", ex);
     });

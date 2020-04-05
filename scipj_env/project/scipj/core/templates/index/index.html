@@ -82,9 +82,9 @@
   
   let index_url = "{% url 'index' %}";
   let hash_url = "{% url 'hash_detail' slug="test" %}";
-  let idx_title = "{{ index_card.title }}"
-  let idx_desc = "{{ index_card.description }}"
-  let idx_image = "{{ index_card.image }}"
+  let idx_title = "{{ name }}";
+  let idx_desc = "{{ description }}";
+  let idx_image = "{{ image }}";
 </script>
 <script src="{% static 'core/index/index.js' %}"></script>
 {% endblock scripts %}

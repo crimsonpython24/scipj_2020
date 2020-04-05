@@ -18,5 +18,11 @@ class IndexCard(models.Model):
     description = models.TextField(_("Description"), max_length=500)
     image = models.ImageField(_("Image"), upload_to=upload_to)
 
+    def get_picture_paths(self):
+        picture_path = None
+        if self.image:
+            picture_path = self.image.name
+        return picture_path
+
     def __str__(self):
         return self.name

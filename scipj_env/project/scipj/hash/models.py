@@ -32,5 +32,11 @@ class Algorithm(UrlMixin, CreationModificationDateMixin, MetaTagsMixin):
     def __str__(self):
         return self.name
 
+    def get_picture_paths(self):
+        picture_path = None
+        if self.image:
+            picture_path = self.image.name
+        return picture_path
+
     def get_url_path(self):
         return reverse("hash-demo", kwargs={"slug": str(self.slug),})
