@@ -19,6 +19,12 @@ import Fab from '@material-ui/core/Fab';
 import SystemUpdateAltIcon from '@material-ui/icons/SystemUpdateAlt';
 import Chip from '@material-ui/core/Chip';
 import Hidden from '@material-ui/core/Hidden';
+import EditIcon from '@material-ui/icons/Edit';
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardMedia from "@material-ui/core/CardMedia";
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 
 function getCookie(name) {
@@ -38,6 +44,10 @@ function getCookie(name) {
 
 function SimpleContainer() {
   const layout_classes = useLayoutStyles();
+
+  const [anchorEl3, setAnchorEl3] = React.useState(null);
+  const handleClick3 = (event) => {setAnchorEl3(event.currentTarget);};
+  const handleClose3 = () => {setAnchorEl3(null);};
   
   return (
     <div>
@@ -49,11 +59,14 @@ function SimpleContainer() {
         <Typography variant="h4" gutterBottom>{algo_name}</Typography>
         <div className={ layout_classes.root }>
           <Grid container spacing={0}>
-            <Hidden only={['xs', 'sm']}>
-              <Grid item xs={12} md={5} style={{ height: "455px" }}></Grid>
-            </Hidden>
-            <Hidden only={['md', 'lg', 'xl']}>
-              <Grid item xs={12} md={5} style={{ height: "200px" }}></Grid>
+            <Hidden only={["xs", "sm"]}>
+              <Grid item xs={12} md={5} style={{ height: "455px" }}>
+                <Card>
+                  <CardActionArea>
+                    <CardMedia image={algo_image} title="Image" style={{ height: "455px" }}/>
+                  </CardActionArea>
+                </Card>
+              </Grid>
             </Hidden>
             <Grid item xs={12} md={7} style={{ height: "455px",  padding: "30px" }}>
               <Typography variant="body1" gutterBottom>{algo_p1}</Typography>
@@ -63,7 +76,24 @@ function SimpleContainer() {
           </Grid>
         </div>
       </Container>
-      <Grid container direction="row" justify="flex-end" alignItems="flex-end">
+      <Grid container direction="row" justify="flex-end" alignItems="flex-end" spacing={3}>
+        <Hidden only={["md", "lg", "xl"]}>
+          <Grid item>
+            <Fab size="small" color="secondary" aria-label="edit" aria-controls="simple-menu"
+                aria-haspopup="true" onClick={handleClick3}>
+              <EditIcon />
+            </Fab>
+          </Grid>
+          <Menu id="simple-menu" anchorEl={anchorEl3} keepMounted open={Boolean(anchorEl3)} onClose={handleClose3}>
+            <MenuItem onClick={handleClose3} style={{ width: "455px" }}>
+              <Card>
+                <CardActionArea>
+                  <CardMedia image={algo_image} title="Image" style={{ height: "455px" }}/>
+                </CardActionArea>
+              </Card>
+            </MenuItem>
+          </Menu>
+        </Hidden>
         <Grid item>
           <Fab variant="extended" size="medium" color="primary" aria-label="add" href="#anchor-2">
             <SystemUpdateAltIcon className={layout_classes.extendedIcon}/>  Step through
@@ -77,19 +107,8 @@ function SimpleContainer() {
 var createClass = require('create-react-class');
 
 const Component = createClass({
-  iframe: function () {
-    return {
-      __html: this.props.iframe
-    }
-  },
-
-  render: function() {
-    return (
-      <div>
-        <div dangerouslySetInnerHTML={ this.iframe() } />
-      </div>
-    );
-  }
+  iframe: function () {return {__html: this.props.iframe}},
+  render: function() {return (<div><div dangerouslySetInnerHTML={ this.iframe() } /></div>);}
 });
 
 const useStyles = makeStyles(theme => ({
@@ -150,9 +169,7 @@ class TextInput extends React.Component {
       me.setState({upper: data.afterText});
       me.setAfter(data.afterText);
       console.log(data.afterText);
-    }).catch(function(ex) {
-        console.log("parsing failed", ex);
-    });
+    }).catch(function(ex) {console.log("parsing failed", ex);});
   }
 
   handleSubmit(event) {
@@ -163,7 +180,8 @@ class TextInput extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <TextField onChange={this.handleChange} id="outlined-basic" variant="outlined" size="small" helperText="Your input string"/>
+        <TextField onChange={this.handleChange} id="outlined-basic" variant="outlined"
+                    size="small" helperText="Your input string"/>
       </form>
     );
   }
@@ -181,7 +199,6 @@ function HorizontalLinearStepper() {
   const steps = getSteps();
   
   const [afterText, setAfter] = React.useState("");
-
   const isStepOptional = step => {return step === 1;};
   const isStepSkipped = step => {return skipped.has(step);};
 
@@ -195,11 +212,7 @@ function HorizontalLinearStepper() {
   const handleBack = () => {setActiveStep(prevActiveStep => prevActiveStep - 1);};
 
   const handleSkip = () => {
-    if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
-      throw new Error("You can't skip a step that isn't optional.");
-    }
+    if (!isStepOptional(activeStep)) {throw new Error("You can't skip a step that isn't optional.");}
 
     setActiveStep(prevActiveStep => prevActiveStep + 1);
     setSkipped(prevSkipped => {
@@ -209,9 +222,7 @@ function HorizontalLinearStepper() {
     });
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-  };
+  const handleReset = () => {setActiveStep(0);};
   
 //  const iframe = `<iframe
 //    src="https://codesandbox.io/embed/testfilespython-nz343?autoresize=1&fontsize=12&hidenavigation=1&module=%2FTestfile.py&theme=dark&view=editor"
