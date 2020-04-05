@@ -81,7 +81,10 @@
   });
   
   let index_url = "{% url 'index' %}";
-  let sample_url = "{% url 'sample' %}";
+  let hash_url = "{% url 'hash_detail' slug="test" %}";
+  let idx_title = "{{ index_card.title }}"
+  let idx_desc = "{{ index_card.description }}"
+  let idx_image = "{{ index_card.image }}"
 </script>
 <script src="{% static 'core/index/index.js' %}"></script>
 {% endblock scripts %}

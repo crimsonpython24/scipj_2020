@@ -44,11 +44,9 @@ function SimpleContainer() {
       <CssBaseline />
       <Container maxWidth="lg" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
         <Typography variant="overline" display="block" gutterBottom style={{ paddingTop: '64px', marginBottom: '0px'}}>
-          Consectetur adipiscing elit, vivamus orci velit
+          {algo_subtitle}
         </Typography>
-        <Typography variant="h4" gutterBottom>
-          Lorem Ipsum dolor sit Amet
-        </Typography>
+        <Typography variant="h4" gutterBottom>{algo_name}</Typography>
         <div className={ layout_classes.root }>
           <Grid container spacing={0}>
             <Hidden only={['xs', 'sm']}>
@@ -58,12 +56,9 @@ function SimpleContainer() {
               <Grid item xs={12} md={5} style={{ height: "200px" }}></Grid>
             </Hidden>
             <Grid item xs={12} md={7} style={{ height: "455px",  padding: "30px" }}>
-              <Typography variant="body1" gutterBottom>
-                Vestibulum efficitur enim sed leo vehicula, nec vulputate neque aliquam. Morbi hendrerit neque massa,
-                in finibus libero egestas vitae. Curabitur mattis orci sapien, vitae bibendum elit finibus nec.
-                Integer rutrum tellus sem, id egestas metus aliquam eget. In commodo ultricies gravida. Suspendisse mi ante,
-                hendrerit commodo lorem sit amet, finibus elementum mauris. Proin vehicula libero et elit venenatis gravida.
-              </Typography>
+              <Typography variant="body1" gutterBottom>{algo_p1}</Typography>
+              <Typography variant="body1" gutterBottom>{algo_p2}</Typography>
+              <Typography variant="body1" gutterBottom>{algo_p3}</Typography>
             </Grid>
           </Grid>
         </div>
@@ -139,7 +134,7 @@ class TextInput extends React.Component {
     let csrftoken = getCookie('csrftoken');
     let me = this;
 
-    fetch('/hash/sample/', {
+    fetch(('/hash/' + {algo_slug}), {
         method: "post",
         credentials: "include",
         headers: new Headers({

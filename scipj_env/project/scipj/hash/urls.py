@@ -1,8 +1,8 @@
 from django.urls import path
 
-from .views import IndexView
+from .views import HashDetailView
 
 
 urlpatterns = [
-    path('sample/', IndexView.as_view(), name='sample'),
+    path('<slug:slug>', HashDetailView.as_view(), name='hash_detail')
 ]

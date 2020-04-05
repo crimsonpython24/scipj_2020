@@ -59,7 +59,7 @@ export default function PersistentDrawerLeft() {
           </ListItem>
           <ListItem button key="Sample">
             <ListItemIcon><AllInboxIcon/></ListItemIcon>
-            <Typography variant="body1"><Link href={sample_url} color="inherit">Sample</Link></Typography>
+            <Typography variant="body1"><Link href="/admin/" color="inherit">Admin</Link></Typography>
           </ListItem>
         </List>
         <Divider />

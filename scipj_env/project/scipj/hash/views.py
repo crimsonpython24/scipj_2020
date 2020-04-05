@@ -1,19 +1,19 @@
-from django.views.generic.base import TemplateView
-from django.utils import timezone
 from django.http import JsonResponse
-from datetime import datetime
+from django.views.generic.detail import DetailView
+from .models import Algorithm
 
 
-class IndexView(TemplateView):
-    template_name = "sample/layout.html"
+class HashDetailView(DetailView):
+    model = Algorithm
+    template_name = "hash/layout.html"
 
-    def post(self, request, *args, **kwargs):
-        translateText = request.POST.get('translateText')
-        afterText = translateText.upper()
-        return JsonResponse({'afterText': afterText})
+    @staticmethod
+    def post(request, *args, **kwargs):
+        translate_text = request.POST.get('translateText')
+        after_text = translate_text.upper()
+        return JsonResponse({'afterText': after_text})
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['now'] = timezone.now()
+        algorithm = Algorithm.objects.get()
+        context = super(HashDetailView, self).get_context_data(**kwargs)
         return context
-

@@ -63,7 +63,14 @@
       $(".full-screen-scroller").fullScreenScroller();
     });
     let index_url = "{% url 'index' %}";
-    let sample_url = "{% url 'sample' %}";
+    let hash_url = "{% url 'hash_detail' slug=algorithm.slug %}";
+    let algo_slug = "{{ algorithm.slug }}";
+    let algo_name = "{{ algorithm.name }}";
+    let algo_subtitle = "{{ algorithm.subtitle }}";
+    let algo_p1 = "{{ algorithm.paragraph1 }}";
+    let algo_p2 = "{{ algorithm.paragraph2 }}";
+    let algo_p3 = "{{ algorithm.paragraph3 }}";
+    let algo_image = "{{ algorithm.image }}";
 </script>
 <script src="{% static 'hash/sample/layout.js' %}"></script>
 {% endblock scripts %}

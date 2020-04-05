@@ -13,6 +13,7 @@ class UrlMixin(models.Model):
     A replacement for get_absolute_url() Models extending this mixin
     should have either get_url or get_url_path implemented.
     """
+
     class Meta:
         abstract = True
 
@@ -25,6 +26,7 @@ class UrlMixin(models.Model):
             raise
         website_host = getattr(settings, "SITE_HOST", "localhost:8000")
         return f"http://{website_host}/{path}"
+
     get_url.dont_recurse = True
 
     def get_url_path(self):
@@ -36,6 +38,7 @@ class UrlMixin(models.Model):
             raise
         bits = urlparse(url)
         return urlunparse(("", "") + bits[2:])
+
     get_url_path.dont_recurse = True
 
     def get_absolute_url(self):
@@ -46,24 +49,29 @@ class CreationModificationDateMixin(models.Model):
     """
     Abstract base class with a creation and modification date and time
     """
+
     class Meta:
         abstract = True
 
     created = models.DateTimeField(_("creation date and time"), auto_now_add=True)
     updated = models.DateTimeField(_("modification date and time"), auto_now=True)
 
+
 class MetaTagsMixin(models.Model):
     """
     Abstract base class for generating meta tags
     """
+
     class Meta:
         abstract = True
 
-    meta_keywords = models.CharField(_("Keywords"), max_length=255, blank=True, help_text=_("Separate keywords by comma."))
+    meta_keywords = models.CharField(_("Keywords"), max_length=255, blank=True,
+                                     help_text=_("Separate keywords by comma."))
     meta_title = models.CharField(_("Title"), max_length=100, blank=True)
     meta_description = models.TextField(_("Description"), max_length=1000, blank=True)
 
-    def get_meta(self, title, description):
+    @staticmethod
+    def get_meta(title, description):
         tag = ""
         if title and description:
             tag = loader.render_to_string('utils/meta.html', {
@@ -115,7 +123,7 @@ class MultilingualField(models.Field):
             max_length=self.max_length,
             unique=self.unique,
             blank=_blank,
-            null=False, # we ignore the null argument!
+            null=False,  # we ignore the null argument!
             db_index=self.db_index,
             default=self.default or "",
             editable=self._editable,
