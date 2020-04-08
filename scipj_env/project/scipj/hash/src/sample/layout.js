@@ -86,9 +86,9 @@ function SimpleContainer() {
           </Grid>
           <Menu id="simple-menu" anchorEl={anchorEl3} keepMounted open={Boolean(anchorEl3)} onClose={handleClose3}>
             <MenuItem onClick={handleClose3} style={{ width: "455px" }}>
-              <Card>
+              <Card >
                 <CardActionArea>
-                  <CardMedia image={algo_image} title="Image" style={{ height: "455px" }}/>
+                  <CardMedia image={algo_image} title="Image" style={{ width: "375px", height: "455px" }}/>
                 </CardActionArea>
               </Card>
             </MenuItem>
@@ -153,7 +153,7 @@ class TextInput extends React.Component {
     let csrftoken = getCookie('csrftoken');
     let me = this;
 
-    fetch(('/hash/' + {algo_slug}), {
+    fetch(('/hash/' + algo_slug), {
         method: "post",
         credentials: "include",
         headers: new Headers({
