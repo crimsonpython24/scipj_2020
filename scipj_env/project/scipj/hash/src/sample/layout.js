@@ -19,7 +19,7 @@ import Fab from '@material-ui/core/Fab';
 import SystemUpdateAltIcon from '@material-ui/icons/SystemUpdateAlt';
 import Chip from '@material-ui/core/Chip';
 import Hidden from '@material-ui/core/Hidden';
-import EditIcon from '@material-ui/icons/Edit';
+import ImageSearchIcon from '@material-ui/icons/ImageSearch';
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -78,11 +78,13 @@ function SimpleContainer() {
       </Container>
       <Grid container direction="row" justify="flex-end" alignItems="flex-end" spacing={0}>
         <Hidden only={["md", "lg", "xl"]}>
-          <Grid item>
-            <Fab size="small" color="secondary" aria-label="edit" aria-controls="simple-menu"
-                aria-haspopup="true" onClick={handleClick3}>
-              <EditIcon />
-            </Fab>
+          <Grid item style={{ paddingRight: "12px" }}>
+            <Tooltip title="Show Image" placement="top">
+              <Fab size="small" color="secondary" aria-label="edit" aria-controls="simple-menu"
+                  aria-haspopup="true" onClick={handleClick3}>
+                <ImageSearchIcon />
+              </Fab>
+            </Tooltip>
           </Grid>
           <Menu id="simple-menu" anchorEl={anchorEl3} keepMounted open={Boolean(anchorEl3)} onClose={handleClose3}>
             <MenuItem onClick={handleClose3} style={{ width: "455px" }}>
@@ -94,8 +96,8 @@ function SimpleContainer() {
             </MenuItem>
           </Menu>
         </Hidden>
-        <Grid item>
-          <Fab variant="extended" size="medium" color="primary" aria-label="add" href="#anchor-2">
+        <Grid item style={{ paddingRight: "12px" }}>
+          <Fab variant="extended" size="medium" color="primary" aria-label="Step Through" href="#anchor-2">
             <SystemUpdateAltIcon className={layout_classes.extendedIcon}/>  Step through
           </Fab>
         </Grid>

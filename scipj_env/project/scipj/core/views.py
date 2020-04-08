@@ -42,14 +42,14 @@ class IndexView(TemplateView):
         blake2_text = blake2.hexdigest()
         sha3_text = sha3.hexdigest()
 
-        if translate_text.endswith("\n"):
-            now = datetime.now()
-            with open('history.txt', 'a') as f:
-                upperWrite = lastText.upper()
-                lowerWrite = lastText.lower()
-                randomWrite = "X1Gen7"
-                f.write(lastText + "," + upperWrite + "," + lowerWrite + "," + randomWrite + "," + now.strftime(
-                    "%m/%d/%Y-%H:%M:%S\n"))
+        # if translate_text.endswith("\n"):
+        #     now = datetime.now()
+        #     with open('history.txt', 'a') as f:
+        #         upperWrite = lastText.upper()
+        #         lowerWrite = lastText.lower()
+        #         randomWrite = "X1Gen7"
+        #         f.write(lastText + "," + upperWrite + "," + lowerWrite + "," + randomWrite + "," + now.strftime(
+        #             "%m/%d/%Y-%H:%M:%S\n"))
 
         return JsonResponse({'MD5Text': md5_text, 'SHA1Text': sha1_text, 'SHA2Text': sha2_text,
                              'Ripemd160Text': ripemd160_text, 'BcryptText': bcrypt_text, 'Blake2Text': blake2_text,
@@ -63,7 +63,10 @@ class IndexView(TemplateView):
         context = {**content, **card_ctxt}
 
         slug_data = []
+        name_data = []
         for algorithm in Algorithm.objects.all():
             slug_data.append(algorithm.slug)
+            name_data.append(algorithm.name)
         context['all'] = slug_data
+        context['all_name'] = name_data
         return context
