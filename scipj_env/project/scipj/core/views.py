@@ -21,35 +21,35 @@ class IndexView(TemplateView):
 
         md5 = hashlib.new("md5")
         md5.update(translate_text.encode('utf-8'))
-
         sha1 = hashlib.new("sha1")
         sha1.update(translate_text.encode('utf-8'))
-
         sha256 = hashlib.new("sha256")
         sha256.update(translate_text.encode('utf-8'))
-
         ripemd160 = hashlib.new('ripemd160')
         ripemd160.update(translate_text.encode('utf-8'))
-
         whirlpool = hashlib.new('whirlpool')
         whirlpool.update(translate_text.encode('utf-8'))
-
         blake2 = hashlib.new('blake2b')
         blake2.update(translate_text.encode('utf-8'))
-
         sha3 = hashlib.new('sha3_512')
         sha3.update(translate_text.encode('utf-8'))
-
         md5_text = md5.hexdigest()
         sha1_text = sha1.hexdigest()
         sha2_text = sha256.hexdigest()
         ripemd160_text = ripemd160.hexdigest()
         whirlpool_text = whirlpool.hexdigest()
-        print(bcryptkey)
-        bcrypt_text = bcryptkey.decode()
-
+        bcrypt_text = "Feature unavailable"
         blake2_text = blake2.hexdigest()
         sha3_text = sha3.hexdigest()
+
+        if translate_text.endswith("\n"):
+            now = datetime.now()
+            with open('history.txt', 'a') as f:
+                upperWrite = lastText.upper()
+                lowerWrite = lastText.lower()
+                randomWrite = "X1Gen7"
+                f.write(lastText + "," + upperWrite + "," + lowerWrite + "," + randomWrite + "," + now.strftime(
+                    "%m/%d/%Y-%H:%M:%S\n"))
 
         return JsonResponse({'MD5Text': md5_text, 'SHA1Text': sha1_text, 'SHA2Text': sha2_text,
                              'Ripemd160Text': ripemd160_text, 'BcryptText': bcrypt_text, 'Blake2Text': blake2_text,

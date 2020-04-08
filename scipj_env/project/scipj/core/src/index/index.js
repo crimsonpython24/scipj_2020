@@ -112,8 +112,14 @@ function SimpleTabs() {
   const [WhirlpoolText, setWhirl]  = React.useState("");
   const [SHA3Text,      setSHA3]   = React.useState("");
 
+  const [tabCountValue,      setTabCountValue]   = React.useState("default value");
   const handleChange1 = (event, newValue) => {setValue1(newValue);};
-  const handleChange2 = (event, newValue) => {setValue2(newValue);};
+  const handleChange2 = (event, newValue) => {
+    setValue2(newValue);
+    setTabCountValue(newValue);
+    console.log('aaaaaa', newValue);
+    console.log('bbbbbb', tabCountValue);
+  };
 
   return (
     <div>
@@ -175,7 +181,8 @@ function SimpleTabs() {
               <Hidden only="xs">
                 <Grid item xs={6} style={{ borderRight: "0.5px solid #e3e3e3" }}>
                   <TextArea setMD5={setMD5} setSHA1={setSHA1} setSHA2={setSHA2} setRip160={setRip160}
-                    setBcrypt={setBcrypt} setBlake2={setBlake2} setWhirl={setWhirl} setSHA3={setSHA3}/>
+                    setBcrypt={setBcrypt} setBlake2={setBlake2} setWhirl={setWhirl} setSHA3={setSHA3}
+                    tabCountValue={tabCountValue} />
                 </Grid>
               </Hidden>
               <Hidden only={["sm", "md", "lg", "xl" ]}>
@@ -272,6 +279,8 @@ class TextArea extends React.Component {
     this.setWhirl = props.setWhirl;
     this.setSHA3 = props.setSHA3;
 
+    this.tabCountValue = props.tabCountValue;
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -282,6 +291,8 @@ class TextArea extends React.Component {
 
     let csrftoken = getCookie('csrftoken');
     let me = this;
+
+    console.log('xxxxxxxx', this.tabCountValue);
 
     fetch('/', {
         method: "post",
@@ -340,6 +351,23 @@ function SimpleList() {
   useEffect(() => {
     console.log(content)
     content.addEventListener('refreshlog', (evt) => {
+      fetch('/', {
+        method: "post",
+        credentials: "include",
+        headers: new Headers({
+          'X-CSRFToken': csrftoken,
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+          'X-Requested-With': 'XMLHttpRequest'
+        }),
+        body: `translateText=${event.target.value}`
+      }).then(function(response) {
+        return response.json();
+      }).then(function(data) {
+        me.setState({MD5: data.MD5Text});
+        me.setMD5(data.MD5Text);
+      }).catch(function(ex) {
+        console.log("parsing failed", ex);
+      });
       setLogText(logText + "abc");
     })
   }, [])
@@ -359,6 +387,9 @@ function SimpleList() {
                 <div style={{ paddingLeft: "-16px" }}>
                   <Typography variant="h6" className={classes.beforeText} style={{ marginBottom: "-4.5px" }}>
                     Lorem Ipsum dolor sit Amet
+                  </Typography>
+                  <Typography variant="h6" style={{ marginBottom: "-4.5px" }}>
+                    { logText }
                   </Typography>
                   <Typography variant="h6" style={{ marginBottom: "15px" }}>Lorem Ipsum dolor sit Amet</Typography>
                 </div>
