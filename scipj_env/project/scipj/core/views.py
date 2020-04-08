@@ -4,8 +4,10 @@ from django.http import JsonResponse
 from datetime import datetime
 
 from .models import IndexCard
+from hash.models import Algorithm
 
 import hashlib
+import bcrypt
 
 
 class IndexView(TemplateView):
@@ -14,6 +16,8 @@ class IndexView(TemplateView):
     @staticmethod
     def post(request, *args, **kwargs):
         translate_text = request.POST.get('translateText')
+
+        bcryptkey = bcrypt.kdf(password=translate_text.encode('utf-8'), salt=b'salt', desired_key_bytes=32, rounds=100)
 
         md5 = hashlib.new("md5")
         md5.update(translate_text.encode('utf-8'))
@@ -41,7 +45,9 @@ class IndexView(TemplateView):
         sha2_text = sha256.hexdigest()
         ripemd160_text = ripemd160.hexdigest()
         whirlpool_text = whirlpool.hexdigest()
-        bcrypt_text = "Sorry, no demo available"
+        print(bcryptkey)
+        bcrypt_text = bcryptkey.decode()
+
         blake2_text = blake2.hexdigest()
         sha3_text = sha3.hexdigest()
 
@@ -55,4 +61,9 @@ class IndexView(TemplateView):
         card_ctxt = {'now': timezone.now(), 'name': index_card.name, 'description': index_card.description,
                      'image': '/static/' + index_card.get_picture_paths()}
         context = {**content, **card_ctxt}
+
+        slug_data = []
+        for algorithm in Algorithm.objects.all():
+            slug_data.append(algorithm.slug)
+        context['all'] = slug_data
         return context

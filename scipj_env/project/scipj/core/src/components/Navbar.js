@@ -31,6 +31,13 @@ export default function PersistentDrawerLeft() {
 
   const preventDefault = (event) => event.preventDefault();
 
+  const listItems = all.map((slug) =>
+    <ListItem button key={slug}>
+      <ListItemIcon><FirstPageIcon/></ListItemIcon>
+      <Typography variant="body1"><Link href={"/hash/" + slug} color="inherit">{slug}</Link></Typography>
+    </ListItem>
+  )
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -57,10 +64,13 @@ export default function PersistentDrawerLeft() {
             <ListItemIcon><FirstPageIcon/></ListItemIcon>
             <Typography variant="body1"><Link href={index_url} color="inherit">Index</Link></Typography>
           </ListItem>
-          <ListItem button key="Sample">
+          <ListItem button key="Admin">
             <ListItemIcon><AllInboxIcon/></ListItemIcon>
             <Typography variant="body1"><Link href="/admin/" color="inherit">Admin</Link></Typography>
           </ListItem>
+        </List>
+        <List>
+          {listItems}
         </List>
         <Divider />
         <List>

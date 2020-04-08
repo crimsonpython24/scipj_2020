@@ -17,10 +17,28 @@
     <div id="testing-space">{% block testing_space %}{% endblock testing_space %}</div>
     {% block content %}{% endblock content %}
   </body>
+  <script>let all = {{ all|safe }};</script>
   {% block scripts %}
     <script>
       let index_url = "{% url 'index' %}";
       let sample_url = "{% url 'sample' %}";
+
+
+      $(document).ready(function () {
+        $(".full-screen-scroller").fullScreenScroller();
+      });
+      let index_url = "{% url 'index' %}";
+      let hash_url = "{% url 'hash_detail' slug=algorithm.slug %}";
+      let algo_slug = "{{ algorithm.slug }}";
+      let algo_name = "{{ algorithm.name }}";
+      let algo_subtitle = "{{ algorithm.subtitle }}";
+      let algo_p1 = "{{ algorithm.paragraph1 }}";
+      let algo_p2 = "{{ algorithm.paragraph2 }}";
+      let algo_p3 = "{{ algorithm.paragraph3 }}";
+      let algo_image = "/static/{{ algorithm.image }}";
+      let algo_steps_header_tmp = {{ algorithm.stepper_header|safe }};
+      let algo_steps_desc_tmp = {{ algorithm.stepper_description|safe }};
+
     </script>
   {% endblock scripts %}
 </html>

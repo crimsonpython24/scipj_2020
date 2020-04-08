@@ -14,6 +14,13 @@ class HashDetailView(DetailView):
         return JsonResponse({'afterText': after_text})
 
     def get_context_data(self, **kwargs):
-        algorithm = Algorithm.objects.get()
+        slug_data = []
+
+        slug = self.kwargs['slug']
         context = super(HashDetailView, self).get_context_data(**kwargs)
+
+        for algorithm in Algorithm.objects.all():
+            slug_data.append(algorithm.slug)
+        context['all'] = slug_data
+
         return context

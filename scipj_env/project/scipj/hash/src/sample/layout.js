@@ -76,7 +76,7 @@ function SimpleContainer() {
           </Grid>
         </div>
       </Container>
-      <Grid container direction="row" justify="flex-end" alignItems="flex-end" spacing={3}>
+      <Grid container direction="row" justify="flex-end" alignItems="flex-end" spacing={0}>
         <Hidden only={["md", "lg", "xl"]}>
           <Grid item>
             <Fab size="small" color="secondary" aria-label="edit" aria-controls="simple-menu"
@@ -196,10 +196,11 @@ function HorizontalLinearStepper() {
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
-  const steps = getSteps();
+  const steps = algo_steps_header_tmp;
+  const desc = algo_steps_desc_tmp;
   
   const [afterText, setAfter] = React.useState("");
-  const isStepOptional = step => {return step === 1;};
+  const isStepOptional = step => {return null;};
   const isStepSkipped = step => {return skipped.has(step);};
 
   const handleNext = () => {
@@ -286,7 +287,9 @@ function HorizontalLinearStepper() {
             <div>
               <Hidden only={['xs']}><Component iframe={iframe} /></Hidden>
               <Hidden only={['md', 'lg', 'xl', 'sm' ]}><Component iframe={iframe2} /></Hidden>
-              <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+              <Typography className={classes.instructions}>
+                {desc[activeStep]}
+              </Typography>
               <div>
                 <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>Back</Button>
                 {isStepOptional(activeStep) && (
