@@ -33,6 +33,7 @@ class BulletinBoard(models.Model):
     subtitle = models.CharField(_("Subtitle"), max_length=150)
     content = models.CharField(_("Content"), max_length=700)
     image = models.ImageField(_("Image"), upload_to=upload_to)
+    date_created = models.DateTimeField(_("Date Created"), default=timezone_now)
 
     def get_picture_paths(self):
         picture_path = None

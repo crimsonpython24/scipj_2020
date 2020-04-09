@@ -77,11 +77,10 @@ class BulletinBoardView(ListView):
     template_name = "bulletin/index.html"
 
     def get_context_data(self, **kwargs):
-        board_id = []
+        boards = []
         context = super().get_context_data(**kwargs)
-        context['now'] = timezone.now()
         for board in BulletinBoard.objects.all():
-            board_id.append(board.id)
-        context['boards'] = board_id
-        print(context)
+            newl = [board.title, board.subtitle, board.content, str(board.image), str(board.date_created)]
+            boards.append(newl)
+        context['boards'] = boards
         return context

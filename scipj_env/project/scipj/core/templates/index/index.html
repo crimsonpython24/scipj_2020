@@ -76,7 +76,8 @@
       }
     });
   });
-  
+
+  let all = {{ all|safe }};
   let index_url = "{% url 'index' %}";
   let hash_url = "{% url 'hash_detail' slug="test" %}";
   let idx_title = "{{ name }}";
