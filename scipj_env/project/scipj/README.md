@@ -99,8 +99,11 @@ MAGAZINE_STATUS_CHOICES = (
 )
 ```
 
+```bash
 pg_ctl -D "C:\Program Files\PostgreSQL\12\data" start
 venv\Scripts\activate && cd scipj_env/project/scipj
 webpack core\src\index\index.js -o dist\core\index\index.js
 webpack hash\src\sample\layout.js -o dist\hash\sample\layout.js
+webpack core\src\bulletin\index.js -o dist\core\bulletin\index.js
+```
 https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-14-04

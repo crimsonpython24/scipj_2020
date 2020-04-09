@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div id="content"></div>
+{% endblock content %}
+
+{% block scripts %}
+<script src="{% static 'core/bulletin/index.js' %}"></script>
+<script>
+  let bulletins = {{ boards|safe }};
+</script>
+{% endblock scripts %}

@@ -1,9 +1,9 @@
 from django.views.generic.base import TemplateView
 from django.utils import timezone
 from django.http import JsonResponse
-from datetime import datetime
+from django.views.generic.list import ListView
 
-from .models import IndexCard
+from .models import IndexCard, BulletinBoard
 from hash.models import Algorithm
 
 import hashlib
@@ -69,4 +69,19 @@ class IndexView(TemplateView):
             name_data.append(algorithm.name)
         context['all'] = slug_data
         context['all_name'] = name_data
+        return context
+
+
+class BulletinBoardView(ListView):
+    model = BulletinBoard
+    template_name = "bulletin/index.html"
+
+    def get_context_data(self, **kwargs):
+        board_id = []
+        context = super().get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        for board in BulletinBoard.objects.all():
+            board_id.append(board.id)
+        context['boards'] = board_id
+        print(context)
         return context

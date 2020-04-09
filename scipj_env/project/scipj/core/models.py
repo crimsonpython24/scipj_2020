@@ -26,3 +26,19 @@ class IndexCard(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class BulletinBoard(models.Model):
+    title = models.CharField(_("Title"), max_length=100)
+    subtitle = models.CharField(_("Subtitle"), max_length=150)
+    content = models.CharField(_("Content"), max_length=700)
+    image = models.ImageField(_("Image"), upload_to=upload_to)
+
+    def get_picture_paths(self):
+        picture_path = None
+        if self.image:
+            picture_path = self.image.name
+        return picture_path
+
+    def __str__(self):
+        return self.title
