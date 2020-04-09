@@ -155,6 +155,9 @@ class TextInput extends React.Component {
     let csrftoken = getCookie('csrftoken');
     let me = this;
 
+    const spliturl = window.location.href.split('/');
+    const algotype0 = spliturl[spliturl.length-1].split('#')[0]
+
     fetch(('/hash/' + algo_slug), {
         method: "post",
         credentials: "include",
@@ -163,14 +166,13 @@ class TextInput extends React.Component {
           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
           'X-Requested-With': 'XMLHttpRequest'
         }),
-        body: `translateText=${event.target.value}` 
+        body: `translateText=${event.target.value}&algotype=${algotype0}`
 
     }).then(function(response) {
         return response.json();
     }).then(function(data) {
       me.setState({upper: data.afterText});
       me.setAfter(data.afterText);
-      console.log(data.afterText);
     }).catch(function(ex) {console.log("parsing failed", ex);});
   }
 
@@ -270,7 +272,8 @@ function HorizontalLinearStepper() {
                       <TrendingFlatIcon/>
                       <Tooltip title="Sorry, no time to do reverse" placement="top-start">
                         <TextField id="outlined-basic" variant="outlined" size="small"
-                          InputProps={{ readOnly: true }} label={ afterText } helperText="Your input string"/>
+                          InputProps={{ readOnly: true }} placeholder={ afterText } helperText="Your input string"
+                          multiline rowsMax="4"/>
                       </Tooltip>
                     </div>
                   </div>

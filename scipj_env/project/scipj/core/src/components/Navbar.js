@@ -101,17 +101,22 @@ export default function PersistentDrawerLeft() {
   const preventDefault = (event) => event.preventDefault();
 
   const listItems = all.map((slug) =>
-    <ListItem button key={slug}>
-      <Link href={"/hash/" + slug} color="inherit">
-        <Hidden only={["xs", "sm", "md"]}>
-          <Tooltip title={slug} placement="right" arrow>
-            <ListItemIcon><CheckBoxOutlineBlankIcon/></ListItemIcon>
-          </Tooltip>
-        </Hidden>
-        <Hidden only={["lg", "xl"]}><ListItemIcon><CheckBoxOutlineBlankIcon/></ListItemIcon></Hidden>
-      </Link>
-      <Typography variant="body1"><Link href={"/hash/" + slug} color="inherit">{slug}</Link></Typography>
-    </ListItem>
+    <div>
+      <Hidden only={["xs", "sm", "md"]}>
+        <Tooltip title={slug} placement="right" arrow>
+          <ListItem button key={slug}>
+            <Link href={"/hash/" + slug} color="inherit"><ListItemIcon><CheckBoxOutlineBlankIcon/></ListItemIcon></Link>
+            <Typography variant="body1"><Link href={"/hash/" + slug} color="inherit">{slug}</Link></Typography>
+          </ListItem>
+        </Tooltip>
+      </Hidden>
+      <Hidden only={["lg", "xl"]}>
+        <ListItem button key={slug}>
+          <Link href={"/hash/" + slug} color="inherit"><ListItemIcon><CheckBoxOutlineBlankIcon/></ListItemIcon></Link>
+          <Typography variant="body1"><Link href={"/hash/" + slug} color="inherit">{slug}</Link></Typography>
+        </ListItem>
+      </Hidden>
+    </div>
   )
 
   return (
@@ -148,24 +153,30 @@ export default function PersistentDrawerLeft() {
           </div>
           <Divider />
           <List>
-            <ListItem button key="Index">
-              <ListItemIcon><FirstPageIcon/></ListItemIcon>
-              <Typography variant="body1"><Link href={index_url} color="inherit">Index</Link></Typography>
-            </ListItem>
-            <ListItem button key="Admin">
-              <ListItemIcon><AllInboxIcon/></ListItemIcon>
-              <Typography variant="body1"><Link href="/admin/" color="inherit">Admin</Link></Typography>
-            </ListItem>
+            <Tooltip title="Index" placement="right" arrow>
+              <ListItem button key="Index">
+                <ListItemIcon><FirstPageIcon/></ListItemIcon>
+                <Typography variant="body1"><Link href={index_url} color="inherit">Index</Link></Typography>
+              </ListItem>
+            </Tooltip>
+            <Tooltip title="Admin" placement="right" arrow>
+              <ListItem button key="Admin">
+                <ListItemIcon><AllInboxIcon/></ListItemIcon>
+                <Typography variant="body1"><Link href="/admin/" color="inherit">Admin</Link></Typography>
+              </ListItem>
+            </Tooltip>
           </List>
           <List>{listItems}</List>
           <Divider />
           <List>
-            <ListItem button key="Github">
-              <ListItemIcon><GitHubIcon/></ListItemIcon>
-              <Typography variant="body1">
-                <Link href="https://github.com/crimsonpython24/scipj_2020" color="inherit">Visit on Github!</Link>
-              </Typography>
-            </ListItem>
+            <Tooltip title="GitHub" placement="right" arrow>
+              <ListItem button key="Github">
+                <ListItemIcon><GitHubIcon/></ListItemIcon>
+                <Typography variant="body1">
+                  <Link href="https://github.com/crimsonpython24/scipj_2020" color="inherit">Visit on Github!</Link>
+                </Typography>
+              </ListItem>
+            </Tooltip>
           </List>
         </Drawer>
       </Hidden>
