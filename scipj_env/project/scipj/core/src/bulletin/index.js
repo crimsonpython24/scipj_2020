@@ -5,13 +5,12 @@ import Navbar from '../../../core/src/components/Navbar';
 
 function Content() {
   const listitems = bulletins.map((subarray) =>
-    <ul>
-      <li>{ subarray[0] }</li>
-      <li>{ subarray[1] }</li>
-      <li>{ subarray[2] }</li>
-      <li>{ subarray[3] }</li>
-      <li>{ subarray[4] }</li>
-    </ul>
+    <div>
+      <h1>Heading</h1>
+      subarray.map((item) =>
+        <p>{item}</p>
+      )
+    </div>
   );
   return (
     <div>{ listitems }</div>
