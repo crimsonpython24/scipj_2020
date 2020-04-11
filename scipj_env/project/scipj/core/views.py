@@ -82,5 +82,6 @@ class BulletinBoardView(ListView):
         for board in BulletinBoard.objects.all():
             newl = [board.title, board.subtitle, board.content, str(board.image), str(board.date_created)]
             boards.append(newl)
-        context['boards'] = boards
+        newarr = [boards[i:i+1] for i in range(0, len(boards), 2)]
+        context['boards'] = newarr;
         return context

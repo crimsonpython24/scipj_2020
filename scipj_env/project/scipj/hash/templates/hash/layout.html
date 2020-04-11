@@ -62,6 +62,7 @@
     $(document).ready(function () {
       $(".full-screen-scroller").fullScreenScroller();
     });
+    let all = {{ all|safe }};
     let index_url = "{% url 'index' %}";
     let hash_url = "{% url 'hash_detail' slug=algorithm.slug %}";
     let algo_slug = "{{ algorithm.slug }}";
