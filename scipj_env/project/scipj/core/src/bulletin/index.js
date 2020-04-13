@@ -16,6 +16,5 @@ function Content() {
     <div>{ listitems }</div>
   );
 }
-}
 
 ReactDOM.render(<Content/>, document.querySelector('#content'));

@@ -247,67 +247,71 @@ function HorizontalLinearStepper() {
 
   return (
     <div className={classes.root}>
-      <Container maxWidth="lg" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
-        <Stepper activeStep={activeStep}>
-          {steps.map((label, index) => {
-            const stepProps = {};
-            const labelProps = {};
-            if (isStepOptional(index)) {labelProps.optional = <Typography variant="caption">Optional</Typography>;}
-            if (isStepSkipped(index)) {stepProps.completed = false;}
-            return (
-              <Step key={label} {...stepProps}><StepLabel {...labelProps}>{label}</StepLabel></Step>
-            );
-          })}
-        </Stepper>
-        <div>
-          {activeStep === steps.length ? (
+      <Grid direction="row" justify="center" alignItems="center" style={{ height: "100%" }}>
+        <Grid item>
+          <Container maxWidth="lg" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
+            <Stepper activeStep={activeStep}>
+              {steps.map((label, index) => {
+                const stepProps = {};
+                const labelProps = {};
+                if (isStepOptional(index)) {labelProps.optional = <Typography variant="caption">Optional</Typography>;}
+                if (isStepSkipped(index)) {stepProps.completed = false;}
+                return (
+                  <Step key={label} {...stepProps}><StepLabel {...labelProps}>{label}</StepLabel></Step>
+                );
+              })}
+            </Stepper>
             <div>
-              <Typography className={classes.instructions}>All steps completed - you&apos;re finished</Typography>
-              <Container maxWidth="sm" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
-                <Paper variant="outlined" >
-                  <div className={classes.root} style={{ paddingTop: '20px', paddingLeft: '16px',
-                                                          padddingRight: '16px', paddingBottom: '20px' }}>
-                    <div className={ svgClasses.root }>
-                      <TextInput setAfter={setAfter} />
-                      <TrendingFlatIcon/>
-                      <Tooltip title="Sorry, no time to do reverse" placement="top-start">
-                        <TextField id="outlined-basic" variant="outlined" size="small"
-                          InputProps={{ readOnly: true }} placeholder={ afterText } helperText="Your input string"
-                          multiline rowsMax="4"/>
-                      </Tooltip>
-                    </div>
+              {activeStep === steps.length ? (
+                <div>
+                  <Typography className={classes.instructions}>All steps completed - you&apos;re finished</Typography>
+                  <Container maxWidth="sm" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
+                    <Paper variant="outlined" >
+                      <div className={classes.root} style={{ paddingTop: '20px', paddingLeft: '16px',
+                                                              padddingRight: '16px', paddingBottom: '20px' }}>
+                        <div className={ svgClasses.root }>
+                          <TextInput setAfter={setAfter} />
+                          <TrendingFlatIcon/>
+                          <Tooltip title="Sorry, no time to do reverse" placement="top-start">
+                            <TextField id="outlined-basic" variant="outlined" size="small"
+                              InputProps={{ readOnly: true }} placeholder={ afterText } helperText="Your input string"
+                              multiline rowsMax="4"/>
+                          </Tooltip>
+                        </div>
+                      </div>
+                      <div style={{ paddingLeft: "20px", paddingRight: "20px", paddingBottom: "20px" }} >
+                        <Chip size="small" label="Hint" onDelete={handleDelete} color="primary" />
+                        <Typography variant="caption" display="block" gutterBottom style={{ display: 'inline', paddingLeft: '17px' }}>
+                          Input your value at the left-hand box
+                        </Typography>
+                      </div>
+                    </Paper>
+                  </Container>
+                  <div style={{ paddingTop: "20px" }}>
+                    <Button onClick={handleReset} className={classes.button}>Reset</Button>
+                    <Button href="#anchor-1" variant="outlined" color="primary">Back to Top</Button>
                   </div>
-                  <div style={{ paddingLeft: "20px", paddingRight: "20px", paddingBottom: "20px" }} >
-                    <Chip size="small" label="Hint" onDelete={handleDelete} color="primary" />
-                    <Typography variant="caption" display="block" gutterBottom style={{ display: 'inline', paddingLeft: '17px' }}>
-                      Input your value at the left-hand box
-                    </Typography>
+                </div>
+              ) : (
+                <div>
+                  <Hidden only={['xs']}><Component iframe={iframe} /></Hidden>
+                  <Hidden only={['md', 'lg', 'xl', 'sm' ]}><Component iframe={iframe2} /></Hidden>
+                  <Typography className={classes.instructions}>{desc[activeStep]}</Typography>
+                  <div style={{ paddingTop: '20px' }}>
+                    <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>Back</Button>
+                    {isStepOptional(activeStep) && (
+                      <Button variant="contained" color="primary" onClick={handleSkip} className={classes.button}>Skip</Button>
+                    )}
+                    <Button variant="contained" color="primary" onClick={handleNext} className={classes.button}>
+                      {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                    </Button>
                   </div>
-                </Paper>
-              </Container>
-              <Button onClick={handleReset} className={classes.button}>Reset</Button>
-              <Button href="#anchor-1" variant="outlined" color="primary">Back to Top</Button>
+                </div>
+              )}
             </div>
-          ) : (
-            <div>
-              <Hidden only={['xs']}><Component iframe={iframe} /></Hidden>
-              <Hidden only={['md', 'lg', 'xl', 'sm' ]}><Component iframe={iframe2} /></Hidden>
-              <Typography className={classes.instructions}>
-                {desc[activeStep]}
-              </Typography>
-              <div>
-                <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>Back</Button>
-                {isStepOptional(activeStep) && (
-                  <Button variant="contained" color="primary" onClick={handleSkip} className={classes.button}>Skip</Button>
-                )}
-                <Button variant="contained" color="primary" onClick={handleNext} className={classes.button}>
-                  {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                </Button>
-              </div>
-            </div>
-          )}
-        </div>
-      </Container>
+          </Container>
+        </Grid>
+      </Grid>
     </div>
   );
 }

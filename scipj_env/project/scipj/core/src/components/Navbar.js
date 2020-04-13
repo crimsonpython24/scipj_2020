@@ -104,17 +104,21 @@ export default function PersistentDrawerLeft() {
     <div>
       <Hidden only={["xs", "sm", "md"]}>
         <Tooltip title={slug} placement="right" arrow>
-          <ListItem button key={slug}>
-            <Link href={"/hash/" + slug} color="inherit"><ListItemIcon><CheckBoxOutlineBlankIcon/></ListItemIcon></Link>
-            <Typography variant="body1"><Link href={"/hash/" + slug} color="inherit">{slug}</Link></Typography>
-          </ListItem>
+          <Link href={"/hash/" + slug} color="inherit">
+            <ListItem button key={slug}>
+              <ListItemIcon><CheckBoxOutlineBlankIcon/></ListItemIcon>
+              <Typography variant="body1"><Link href={"/hash/" + slug} color="inherit">{slug}</Link></Typography>
+            </ListItem>
+          </Link>
         </Tooltip>
       </Hidden>
       <Hidden only={["lg", "xl"]}>
-        <ListItem button key={slug}>
-          <Link href={"/hash/" + slug} color="inherit"><ListItemIcon><CheckBoxOutlineBlankIcon/></ListItemIcon></Link>
-          <Typography variant="body1"><Link href={"/hash/" + slug} color="inherit">{slug}</Link></Typography>
-        </ListItem>
+        <Link href={"/hash/" + slug} color="inherit">
+          <ListItem button key={slug}>
+            <ListItemIcon><CheckBoxOutlineBlankIcon/></ListItemIcon>
+            <Typography variant="body1"><Link href={"/hash/" + slug} color="inherit">{slug}</Link></Typography>
+          </ListItem>
+        </Link>
       </Hidden>
     </div>
   )
@@ -154,28 +158,29 @@ export default function PersistentDrawerLeft() {
           <Divider />
           <List>
             <Tooltip title="Index" placement="right" arrow>
-              <ListItem button key="Index">
-                <ListItemIcon><FirstPageIcon/></ListItemIcon>
-                <Typography variant="body1"><Link href={index_url} color="inherit">Index</Link></Typography>
-              </ListItem>
+              <Link href="" color="inherit">
+                <ListItem button key="Index">
+                  <ListItemIcon><FirstPageIcon/></ListItemIcon><Typography variant="body1">Index</Typography>
+                </ListItem>
+              </Link>
             </Tooltip>
             <Tooltip title="Admin" placement="right" arrow>
-              <ListItem button key="Admin">
-                <ListItemIcon><AllInboxIcon/></ListItemIcon>
-                <Typography variant="body1"><Link href="/admin/" color="inherit">Admin</Link></Typography>
-              </ListItem>
+              <Link href="/admin/" color="inherit">
+                <ListItem button key="Admin">
+                  <ListItemIcon><AllInboxIcon/></ListItemIcon><Typography variant="body1">Admin</Typography>
+                </ListItem>
+              </Link>
             </Tooltip>
           </List>
           <List>{listItems}</List>
           <Divider />
           <List>
             <Tooltip title="GitHub" placement="right" arrow>
-              <ListItem button key="Github">
-                <ListItemIcon><GitHubIcon/></ListItemIcon>
-                <Typography variant="body1">
-                  <Link href="https://github.com/crimsonpython24/scipj_2020" color="inherit">Visit on Github!</Link>
-                </Typography>
-              </ListItem>
+              <Link href="https://github.com/crimsonpython24/scipj_2020/" color="inherit">
+                <ListItem button key="Github">
+                  <ListItemIcon><GitHubIcon/></ListItemIcon><Typography variant="body1">Visit on Github!</Typography>
+                </ListItem>
+              </Link>
             </Tooltip>
           </List>
         </Drawer>
@@ -190,24 +195,25 @@ export default function PersistentDrawerLeft() {
           </div>
           <Divider />
           <List>
-            <ListItem button key="Index">
-              <ListItemIcon><FirstPageIcon/></ListItemIcon>
-              <Typography variant="body1"><Link href={index_url} color="inherit">Index</Link></Typography>
-            </ListItem>
-            <ListItem button key="Admin">
-              <ListItemIcon><AllInboxIcon/></ListItemIcon>
-              <Typography variant="body1"><Link href="/admin/" color="inherit">Admin</Link></Typography>
-            </ListItem>
+            <Link href="" color="inherit">
+              <ListItem button key="Index">
+                <ListItemIcon><FirstPageIcon/></ListItemIcon><Typography variant="body1">Index</Typography>
+              </ListItem>
+            </Link>
+            <Link href="/admin/" color="inherit">
+              <ListItem button key="Admin">
+                <ListItemIcon><FirstPageIcon/></ListItemIcon><Typography variant="body1">Admin</Typography>
+              </ListItem>
+            </Link>
           </List>
           <List>{listItems}</List>
           <Divider />
           <List>
-            <ListItem button key="Github">
-              <ListItemIcon><GitHubIcon/></ListItemIcon>
-              <Typography variant="body1">
-                <Link href="https://github.com/crimsonpython24/scipj_2020" color="inherit">Visit on Github!</Link>
-              </Typography>
-            </ListItem>
+            <Link href="/admin/" color="inherit">
+              <ListItem button key="Github">
+                <ListItemIcon><GitHubIcon/></ListItemIcon><Typography variant="body1">Visit on Github!</Typography>
+              </ListItem>
+            </Link>
           </List>
         </Drawer>
       </Hidden>
