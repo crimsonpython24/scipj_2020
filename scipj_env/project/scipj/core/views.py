@@ -18,6 +18,7 @@ class IndexView(TemplateView):
     @staticmethod
     def post(request, *args, **kwargs):
         translate_text = request.POST.get('translateText')
+        tab_index = request.POST.get('tabIndex')
 
         try:
             bcryptkey = bcrypt.kdf(password=translate_text.encode('utf-8'), salt=b'salt', desired_key_bytes=32, rounds=100)
@@ -47,15 +48,21 @@ class IndexView(TemplateView):
         blake2_text = blake2.hexdigest()
         sha3_text = sha3.hexdigest()
 
+        name = ['MD5Text', 'SHA1Text', 'SHA2Text', 'Ripemd160Text',
+                'BcryptText', 'Blake2Text', 'WhirlpoolText', 'SHA3Text']
+
+        content = {'MD5Text': md5_text, 'SHA1Text': sha1_text, 'SHA2Text': sha2_text,
+                   'Ripemd160Text': ripemd160_text, 'BcryptText': bcrypt_text, 'Blake2Text': blake2_text,
+                   'WhirlpoolText': whirlpool_text, 'SHA3Text': sha3_text}
+
         if translate_text.endswith("\n"):
             now = datetime.now()
-            with open('history.txt', 'a') as f:
-                randomWrite = "X1Gen7"
-                f.write(randomWrite + "," + now.strftime("%m/%d/%Y-%H:%M:%S\n"))
+            with open('history.txt', 'w') as f:
+                random_write = content.get(name[int(tab_index)])
+                lastitem = translate_text.split("\n")[-2]
+                f.write(random_write + "," + lastitem + "," + now.strftime("%m/%d/%Y-%H:%M:%S\n"))
 
-        return JsonResponse({'MD5Text': md5_text, 'SHA1Text': sha1_text, 'SHA2Text': sha2_text,
-                             'Ripemd160Text': ripemd160_text, 'BcryptText': bcrypt_text, 'Blake2Text': blake2_text,
-                             'WhirlpoolText': whirlpool_text, 'SHA3Text': sha3_text})
+        return JsonResponse(content)
 
     def get_context_data(self, **kwargs):
         index_card = IndexCard.objects.get(id=1)
@@ -98,11 +105,14 @@ class TranslateLogView(TemplateView):
             counter = 0
             lines = f.readlines()
             length = len(lines)
-            for line in lines[length-5:length]:
+            idx = 5 if length > 5 else length
+            for line in lines[length-idx:length]:
                 temparray = line.split(',')
+                print(temparray)
                 objects.append(
                     {'id': counter,
-                     'text': temparray[0]
+                     'text': temparray[0],
+                     'original_text': temparray[1],
                      }
                 )
                 counter += 1

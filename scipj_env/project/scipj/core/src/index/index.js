@@ -112,13 +112,13 @@ function SimpleTabs() {
   const [WhirlpoolText, setWhirl]  = React.useState("");
   const [SHA3Text,      setSHA3]   = React.useState("");
 
+  const ref = React.useRef(null);
+
   const [tabCountValue,      setTabCountValue]   = React.useState("default value");
   const handleChange1 = (event, newValue) => {setValue1(newValue);};
   const handleChange2 = (event, newValue) => {
     setValue2(newValue);
-    setTabCountValue(newValue);
-    console.log('aaaaaa', newValue);
-    console.log('bbbbbb', tabCountValue);
+    ref.current.changeTab(newValue);
   };
 
   return (
@@ -180,7 +180,7 @@ function SimpleTabs() {
             <Grid container spacing={0} >
               <Hidden only="xs">
                 <Grid item xs={6} style={{ borderRight: "0.5px solid #e3e3e3" }}>
-                  <TextArea setMD5={setMD5} setSHA1={setSHA1} setSHA2={setSHA2} setRip160={setRip160}
+                  <TextArea ref={ref} setMD5={setMD5} setSHA1={setSHA1} setSHA2={setSHA2} setRip160={setRip160}
                     setBcrypt={setBcrypt} setBlake2={setBlake2} setWhirl={setWhirl} setSHA3={setSHA3}
                     tabCountValue={tabCountValue} />
                 </Grid>
@@ -268,7 +268,8 @@ function SimpleTabs() {
 class TextArea extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: '', MD5: '', SHA1: '', SHA2: '', Ripemd160: '', Bcrypt: '', Blake2: '', Whirl: '', SHA3: ''};
+    this.state = {value: '', MD5: '', SHA1: '', SHA2: '', Ripemd160: '',
+                  Bcrypt: '', Blake2: '', Whirl: '', SHA3: '', tab: 0};
 
     this.setMD5 = props.setMD5;
     this.setSHA1 = props.setSHA1;
@@ -285,6 +286,10 @@ class TextArea extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  changeTab(tabValue) {
+    this.setState({tab: tabValue});
+  }
+
   handleChange(event) {
     this.setState({value: event.target.value});
     event.preventDefault();
@@ -292,7 +297,8 @@ class TextArea extends React.Component {
     let csrftoken = getCookie('csrftoken');
     let me = this;
 
-    console.log('xxxxxxxx', this.tabCountValue);
+    const spliturl = window.location.href.split('/');
+    const algotype0 = spliturl[spliturl.length-1].split('#')[0]
 
     fetch('/', {
         method: "post",
@@ -302,7 +308,8 @@ class TextArea extends React.Component {
           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
           'X-Requested-With': 'XMLHttpRequest'
         }),
-        body: `translateText=${event.target.value}`
+        body: `translateText=${event.target.value}&tabIndex=${me.state.tab}`
+
     }).then(function(response) {
         return response.json();
     }).then(function(data) {
@@ -380,7 +387,7 @@ function SimpleList() {
                 primary={
                   <div style={{ paddingLeft: "-16px" }}>
                     <Typography variant="h6" className={classes.beforeText} style={{ marginBottom: "-4.5px" }}>
-                      Lorem Ipsum dolor sit Amet
+                      { item.original_text }
                     </Typography>
                     <Typography variant="h6" style={{ marginBottom: "-4.5px" }}>
                       { item.text }

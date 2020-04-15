@@ -107,7 +107,7 @@ export default function PersistentDrawerLeft() {
           <Link href={"/hash/" + slug} color="inherit">
             <ListItem button key={slug}>
               <ListItemIcon><CheckBoxOutlineBlankIcon/></ListItemIcon>
-              <Typography variant="body1"><Link href={"/hash/" + slug} color="inherit">{slug}</Link></Typography>
+              <Typography variant="body1">{slug}</Typography>
             </ListItem>
           </Link>
         </Tooltip>
@@ -116,7 +116,7 @@ export default function PersistentDrawerLeft() {
         <Link href={"/hash/" + slug} color="inherit">
           <ListItem button key={slug}>
             <ListItemIcon><CheckBoxOutlineBlankIcon/></ListItemIcon>
-            <Typography variant="body1"><Link href={"/hash/" + slug} color="inherit">{slug}</Link></Typography>
+            <Typography variant="body1">{slug}</Typography>
           </ListItem>
         </Link>
       </Hidden>
