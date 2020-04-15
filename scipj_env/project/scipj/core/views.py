@@ -3,6 +3,8 @@ from django.utils import timezone
 from django.http import JsonResponse
 from django.views.generic.list import ListView
 
+from datetime import datetime
+
 from .models import IndexCard, BulletinBoard
 from hash.models import Algorithm
 
@@ -17,7 +19,10 @@ class IndexView(TemplateView):
     def post(request, *args, **kwargs):
         translate_text = request.POST.get('translateText')
 
-        bcryptkey = bcrypt.kdf(password=translate_text.encode('utf-8'), salt=b'salt', desired_key_bytes=32, rounds=100)
+        try:
+            bcryptkey = bcrypt.kdf(password=translate_text.encode('utf-8'), salt=b'salt', desired_key_bytes=32, rounds=100)
+        except ValueError:
+            pass
 
         md5 = hashlib.new("md5")
         md5.update(translate_text.encode('utf-8'))
@@ -42,14 +47,11 @@ class IndexView(TemplateView):
         blake2_text = blake2.hexdigest()
         sha3_text = sha3.hexdigest()
 
-        # if translate_text.endswith("\n"):
-        #     now = datetime.now()
-        #     with open('history.txt', 'a') as f:
-        #         upperWrite = lastText.upper()
-        #         lowerWrite = lastText.lower()
-        #         randomWrite = "X1Gen7"
-        #         f.write(lastText + "," + upperWrite + "," + lowerWrite + "," + randomWrite + "," + now.strftime(
-        #             "%m/%d/%Y-%H:%M:%S\n"))
+        if translate_text.endswith("\n"):
+            now = datetime.now()
+            with open('history.txt', 'a') as f:
+                randomWrite = "X1Gen7"
+                f.write(randomWrite + "," + now.strftime("%m/%d/%Y-%H:%M:%S\n"))
 
         return JsonResponse({'MD5Text': md5_text, 'SHA1Text': sha1_text, 'SHA2Text': sha2_text,
                              'Ripemd160Text': ripemd160_text, 'BcryptText': bcrypt_text, 'Blake2Text': blake2_text,
@@ -85,3 +87,24 @@ class BulletinBoardView(ListView):
         newarr = [boards[i:i+1] for i in range(0, len(boards), 2)]
         context['boards'] = newarr;
         return context
+
+
+class TranslateLogView(TemplateView):
+    template_name = "base.html"
+
+    def get(self, request, *args, **kwargs):
+        objects = []
+        with open('history.txt', 'r') as f:
+            counter = 0
+            lines = f.readlines()
+            length = len(lines)
+            for line in lines[length-5:length]:
+                temparray = line.split(',')
+                objects.append(
+                    {'id': counter,
+                     'text': temparray[0]
+                     }
+                )
+                counter += 1
+
+        return JsonResponse({'objects': objects})

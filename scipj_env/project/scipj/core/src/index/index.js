@@ -347,28 +347,21 @@ function SimpleList() {
   const preventDefault = (event) => event.preventDefault();
 
   const [logText, setLogText] = React.useState("");
+  const [listItems, setListItems] = React.useState([]);
 
   useEffect(() => {
     console.log(content)
     content.addEventListener('refreshlog', (evt) => {
-      fetch('/', {
-        method: "post",
-        credentials: "include",
-        headers: new Headers({
-          'X-CSRFToken': csrftoken,
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-          'X-Requested-With': 'XMLHttpRequest'
-        }),
-        body: `translateText=${event.target.value}`
+      console.log("f");
+
+      fetch('/core/log/', {
       }).then(function(response) {
         return response.json();
       }).then(function(data) {
-        me.setState({MD5: data.MD5Text});
-        me.setMD5(data.MD5Text);
+        setListItems(data.objects);
       }).catch(function(ex) {
         console.log("parsing failed", ex);
       });
-      setLogText(logText + "abc");
     })
   }, [])
 
@@ -381,21 +374,22 @@ function SimpleList() {
           <Link href="#subview-a" color="inherit">Back to Translator</Link>
         </Typography>
         <List component="nav" aria-label="secondary mailbox folders">
-          <ListItemLink href="#" button>
-            <ListItemText
-              primary={
-                <div style={{ paddingLeft: "-16px" }}>
-                  <Typography variant="h6" className={classes.beforeText} style={{ marginBottom: "-4.5px" }}>
-                    Lorem Ipsum dolor sit Amet
-                  </Typography>
-                  <Typography variant="h6" style={{ marginBottom: "-4.5px" }}>
-                    { logText }
-                  </Typography>
-                  <Typography variant="h6" style={{ marginBottom: "15px" }}>Lorem Ipsum dolor sit Amet</Typography>
-                </div>
-              }
-            />
-          </ListItemLink>
+          {listItems.map(item =>
+            <ListItemLink href="#" button>
+              <ListItemText
+                primary={
+                  <div style={{ paddingLeft: "-16px" }}>
+                    <Typography variant="h6" className={classes.beforeText} style={{ marginBottom: "-4.5px" }}>
+                      Lorem Ipsum dolor sit Amet
+                    </Typography>
+                    <Typography variant="h6" style={{ marginBottom: "-4.5px" }}>
+                      { item.text }
+                    </Typography>
+                  </div>
+                }
+              />
+            </ListItemLink>
+          )}
         </List>
       </Container>
     </div>

@@ -228,21 +228,6 @@ function HorizontalLinearStepper() {
   };
 
   const handleReset = () => {setActiveStep(0);};
-  
-//  const iframe = `<iframe
-//    src="https://codesandbox.io/embed/testfilespython-nz343?autoresize=1&fontsize=12&hidenavigation=1&module=%2FTestfile.py&theme=dark&view=editor"
-//    style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
-//    title="test_files_python"
-//    allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb"
-//    sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
-//  ></iframe>`;
-//  const iframe2 = `<iframe
-//    src="https://codesandbox.io/embed/testfilespython-nz343?autoresize=1&fontsize=12&hidenavigation=1&module=%2FTestfile.py&theme=dark&view=editor"
-//    style="width:100%; height:275px; border:0; border-radius: 4px; overflow:hidden;"
-//    title="test_files_python"
-//    allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb"
-//    sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
-//  ></iframe>`;
   const iframe = ""; const iframe2 = "";
 
   return (
