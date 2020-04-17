@@ -52,7 +52,7 @@ function SimpleContainer() {
   return (
     <div>
       <CssBaseline />
-      <Container maxWidth="lg" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
+      <Container maxWidth="md" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
         <Typography variant="overline" display="block" gutterBottom style={{ paddingTop: '64px', marginBottom: '0px'}}>
           {algo_subtitle}
         </Typography>
@@ -233,8 +233,9 @@ function HorizontalLinearStepper() {
   return (
     <div className={classes.root}>
       <Grid direction="row" justify="center" alignItems="center" style={{ height: "100%" }}>
-        <Grid item>
-          <Container maxWidth="lg" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
+        <Grid item style={{ height: "100%" }}>
+          <Container maxWidth="md" style={{ paddingLeft: '15px', paddingRight: '15px',
+                                            backgroundColor: "#ffffff", height: "100%" }}>
             <Stepper activeStep={activeStep}>
               {steps.map((label, index) => {
                 const stepProps = {};
@@ -246,7 +247,7 @@ function HorizontalLinearStepper() {
                 );
               })}
             </Stepper>
-            <div>
+            <div style={{ backgroundColor: "#ffffff" }}>
               {activeStep === steps.length ? (
                 <div>
                   <Typography className={classes.instructions}>All steps completed - you&apos;re finished</Typography>

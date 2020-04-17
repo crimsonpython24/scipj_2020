@@ -387,7 +387,7 @@ function SimpleList() {
                 primary={
                   <div style={{ paddingLeft: "-16px" }}>
                     <Typography variant="h6" className={classes.beforeText} style={{ marginBottom: "-4.5px" }}>
-                      { item.original_text }
+                      { item.original_text }   >>> TO { item.algotype }
                     </Typography>
                     <Typography variant="h6" style={{ marginBottom: "-4.5px" }}>
                       { item.text }

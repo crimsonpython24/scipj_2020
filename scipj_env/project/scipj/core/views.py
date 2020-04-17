@@ -57,10 +57,16 @@ class IndexView(TemplateView):
 
         if translate_text.endswith("\n"):
             now = datetime.now()
-            with open('history.txt', 'w') as f:
-                random_write = content.get(name[int(tab_index)])
-                lastitem = translate_text.split("\n")[-2]
-                f.write(random_write + "," + lastitem + "," + now.strftime("%m/%d/%Y-%H:%M:%S\n"))
+            with open('history.txt', 'a') as f:
+                algo_name_new = name[int(tab_index)]
+                random_write = content.get(algo_name_new)
+                lastitem = ""
+                lastarr = translate_text.split("\n")[:-1]
+                for string in lastarr:
+                    lastitem += string
+
+                print(lastitem)
+                f.write(random_write + "," + lastitem + "," + algo_name_new + "," + now.strftime("%m/%d/%Y-%H:%M:%S\n"))
 
         return JsonResponse(content)
 
@@ -108,11 +114,11 @@ class TranslateLogView(TemplateView):
             idx = 5 if length > 5 else length
             for line in lines[length-idx:length]:
                 temparray = line.split(',')
-                print(temparray)
                 objects.append(
                     {'id': counter,
                      'text': temparray[0],
                      'original_text': temparray[1],
+                     'algotype': temparray[2],
                      }
                 )
                 counter += 1

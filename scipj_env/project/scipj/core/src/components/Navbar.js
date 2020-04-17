@@ -76,8 +76,6 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbar: {
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
@@ -103,14 +101,14 @@ export default function PersistentDrawerLeft() {
   const listItems = all.map((slug) =>
     <div>
       <Hidden only={["xs", "sm", "md"]}>
-        <Tooltip title={slug} placement="right" arrow>
-          <Link href={"/hash/" + slug} color="inherit">
+        <Link href={"/hash/" + slug} color="inherit">
+          <Tooltip title={slug} placement="right" arrow>
             <ListItem button key={slug}>
               <ListItemIcon><CheckBoxOutlineBlankIcon/></ListItemIcon>
               <Typography variant="body1">{slug}</Typography>
             </ListItem>
-          </Link>
-        </Tooltip>
+          </Tooltip>
+        </Link>
       </Hidden>
       <Hidden only={["lg", "xl"]}>
         <Link href={"/hash/" + slug} color="inherit">
@@ -157,31 +155,31 @@ export default function PersistentDrawerLeft() {
           </div>
           <Divider />
           <List>
-            <Tooltip title="Index" placement="right" arrow>
-              <Link href="" color="inherit">
+            <Link href="/" color="inherit">
+              <Tooltip title="Index" placement="right" arrow>
                 <ListItem button key="Index">
                   <ListItemIcon><FirstPageIcon/></ListItemIcon><Typography variant="body1">Index</Typography>
                 </ListItem>
-              </Link>
-            </Tooltip>
-            <Tooltip title="Admin" placement="right" arrow>
-              <Link href="/admin/" color="inherit">
+              </Tooltip>
+            </Link>
+            <Link href="/admin/" color="inherit">
+              <Tooltip title="Admin" placement="right" arrow>
                 <ListItem button key="Admin">
                   <ListItemIcon><AllInboxIcon/></ListItemIcon><Typography variant="body1">Admin</Typography>
                 </ListItem>
-              </Link>
-            </Tooltip>
+              </Tooltip>
+            </Link>
           </List>
           <List>{listItems}</List>
           <Divider />
           <List>
-            <Tooltip title="GitHub" placement="right" arrow>
-              <Link href="https://github.com/crimsonpython24/scipj_2020/" color="inherit">
+            <Link href="https://github.com/crimsonpython24/scipj_2020/" color="inherit">
+              <Tooltip title="GitHub" placement="right" arrow>
                 <ListItem button key="Github">
                   <ListItemIcon><GitHubIcon/></ListItemIcon><Typography variant="body1">Visit on Github!</Typography>
                 </ListItem>
-              </Link>
-            </Tooltip>
+              </Tooltip>
+             </Link>
           </List>
         </Drawer>
       </Hidden>
